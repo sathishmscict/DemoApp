@@ -33,7 +33,7 @@ public class SessionManager {
     public static final String KEY_USER_ID = "UserId", KEY_USER_VERIFICATION_STATUS = "VerificationStatus", KEY_USER_GENDER = "Gender", KEY_USER_DOB = "DOB", KEY_USER_REFERAL_CODE = "ReferralCode", KEY_USER_DEVICE_TYPE = "DeviceType", KEY_USER_IS_FIRST_BILL = "IsFirstBill", KEY_USER_IS_ACTIVE = "IsActive", KEY_USER_IS_REFERRED = "IsReferred", KEY_USER_MOBILE = "UserMobile";
 
     public static final String KEY_CATEGORYID = "categoryId", KEY_CATEGORY_NAME = "categoryName";
-    public static final String KEY_VENDORID = "VendorId",KEY_BRANCHIID="BranchId";
+    public static final String KEY_VENDORID = "VendorId", KEY_BRANCHIID = "BranchId";
     public static final String KEY_OFFERID = "OfferId";
 
 
@@ -77,9 +77,12 @@ public class SessionManager {
         HashMap<String, String> user = new HashMap<String, String>();
 
 
-        user.put(KEY_BRANCHIID, pref.getString(KEY_BRANCHIID , "0"));
+        user.put(KEY_OFFERID, pref.getString(KEY_OFFERID, "0"));
 
-        user.put(KEY_VENDORID  , pref.getString(KEY_VENDORID , "0"));
+
+        user.put(KEY_BRANCHIID, pref.getString(KEY_BRANCHIID, "0"));
+
+        user.put(KEY_VENDORID, pref.getString(KEY_VENDORID, "0"));
         user.put(KEY_CATEGORY_NAME, pref.getString(KEY_CATEGORY_NAME, ""));
         user.put(KEY_CATEGORYID, pref.getString(KEY_CATEGORYID, ""));
         user.put(KEY_ENODEDED_STRING, pref.getString(KEY_ENODEDED_STRING, ""));
@@ -187,19 +190,18 @@ public class SessionManager {
         editor.commit();
     }
 
-    public void setVendorDetails(String branchId,String vendorId) {
+    public void setVendorDetails(String branchId, String vendorId) {
 
 
         editor.putString(KEY_VENDORID, vendorId);
-        editor.putString(KEY_BRANCHIID , branchId);
-
+        editor.putString(KEY_BRANCHIID, branchId);
 
 
         editor.commit();
     }
 
     public void setOfferDetails(String offerid) {
-        editor.putString(KEY_OFFERID , offerid);
+        editor.putString(KEY_OFFERID, offerid);
         editor.commit();
     }
 }

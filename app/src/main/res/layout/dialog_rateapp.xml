@@ -25,10 +25,10 @@
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:layout_marginTop="20dp"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/button_clicked_background"
 
 
-        android:text=""
+        android:text="asd"
         android:textAllCaps="true"
         android:textColor="#FFFFFF"
         android:textStyle="bold" />
@@ -38,7 +38,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/button_clicked_background"
 
 
         android:text="Remind me later"
@@ -51,7 +51,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/button_clicked_background"
         android:text="NO, THANKS"
 
 

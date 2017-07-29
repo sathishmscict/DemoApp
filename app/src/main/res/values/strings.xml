@@ -38,6 +38,7 @@
     <string name="hint_name">Name</string>
     <string name="hint_email">Email (Optional)</string>
     <string name="hint_mobile">Mobile</string>
+    <string name="hint_dob">DOB</string>
 
     <!--Secondary Dashboard-->
     <string name="str_clain_firsrt_offer_descr">Thank you for downloading App \n claim your first coupon</string>

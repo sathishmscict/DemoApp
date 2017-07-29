@@ -109,7 +109,9 @@ public class DealsAdapterRecyclerView extends RecyclerView.Adapter<DealsAdapterR
             holder.tvUnitPrice.setVisibility(View.VISIBLE);
 
             int totalAmount = Integer.parseInt(dealData.getUnitprice());
-            int DealAmount = (Integer.parseInt(dealData.getDiscountdesc()) * 100) / totalAmount;
+            int DealAmount = (totalAmount * Integer.parseInt(dealData.getDiscountdesc())) / 100;
+            DealAmount = totalAmount  - DealAmount;
+
 
             holder.tvUnitPrice.setText("\u20b9"+String.valueOf(totalAmount));
             holder.tvOfferDiscount.setText("\u20b9"+String.valueOf(DealAmount));

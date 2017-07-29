@@ -59,6 +59,8 @@ public class DisplayDealsAcivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        setTitle("Deals / Offers ");
+
         spotsDialog = new SpotsDialog(context);
 
         sessionManager = new SessionManager(context);
@@ -112,11 +114,12 @@ public class DisplayDealsAcivity extends AppCompatActivity {
     //onCreate Completed
 
 
-    private void getDealsDetailsFromServer() {
+    private void getDealsDetailsFromServer()
+    {
         CommonMethods.showDialog(spotsDialog);
 
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Log.d(TAG, "URL " + AllKeys.WEBSITE + "ViewAllOffersData?type=offers&offertypeid=" + CommonMethods.OFFER_TYPE_GENERAL + "&branchid=" + userDetails.get(SessionManager.KEY_BRANCHIID) + "");
+        Log.d(TAG, "URL ViewAllOffersData : " + AllKeys.WEBSITE + "ViewAllOffersData?type=offers&offertypeid=" + CommonMethods.OFFER_TYPE_GENERAL + "&branchid=" + userDetails.get(SessionManager.KEY_BRANCHIID) + "");
         apiService.getAllDealsDetailsFromServer("offers", CommonMethods.OFFER_TYPE_GENERAL, userDetails.get(SessionManager.KEY_BRANCHIID)).enqueue(new Callback<DealsData>() {
             @Override
             public void onResponse(Call<DealsData> call, retrofit2.Response<DealsData> response) {

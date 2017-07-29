@@ -3,6 +3,7 @@ package com.myoffersapp.retrofit;
 import com.myoffersapp.model.CategoryData;
 import com.myoffersapp.model.DealsData;
 import com.myoffersapp.model.ReferralData;
+import com.myoffersapp.model.SingleOfferData;
 import com.myoffersapp.model.SingleUserInfo;
 import com.myoffersapp.model.VendorData;
 
@@ -37,6 +38,11 @@ public interface ApiInterface {
     @POST("ViewAllOffersData")
     @FormUrlEncoded
     Call<DealsData> getAllDealsDetailsFromServer(@Field("type")String type, @Field("offertypeid")Integer  categoyId,@Field("branchid")String branchid);
+
+
+    @POST("ViewSingleOfferData")
+    @FormUrlEncoded
+    Call<SingleOfferData> getSingleDealsDetailsFromServer(@Field("type")String type, @Field("offerid")String  categoyId);
 
 
 
