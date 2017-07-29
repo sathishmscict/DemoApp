@@ -1,0 +1,115 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="0dp"
+        android:scaleType="fitXY"
+        custom:layout_constraintBottom_toTopOf="@+id/guideline38"
+        custom:layout_constraintHorizontal_bias="0.0"
+        custom:layout_constraintLeft_toLeftOf="parent"
+        custom:layout_constraintRight_toRightOf="parent"
+        custom:layout_constraintTop_toTopOf="parent"
+        custom:layout_constraintVertical_bias="0.0"
+        custom:srcCompat="@drawable/refer1" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline38"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        custom:layout_constraintGuide_percent="0.4" />
+
+    <com.myoffersapp.ui.AppTextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="32dp"
+        android:text="It Pays to have Friends !"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        custom:layout_constraintLeft_toLeftOf="parent"
+        custom:layout_constraintRight_toRightOf="parent"
+        custom:layout_constraintTop_toTopOf="@+id/guideline38"
+        app:layout_constraintHorizontal_bias="0.504" />
+
+    <com.myoffersapp.ui.AppTextView
+        android:id="@+id/textView3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="0dp"
+        android:gravity="center"
+        android:padding="4dp"
+        android:text="@string/str_referal_fragment_descr"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        custom:layout_constraintHorizontal_bias="0.0"
+        custom:layout_constraintLeft_toLeftOf="parent"
+        custom:layout_constraintRight_toRightOf="parent"
+        custom:layout_constraintTop_toBottomOf="@+id/textView"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline35" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline35"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        custom:layout_constraintGuide_percent="0.7" />
+
+    <com.myoffersapp.ui.AppTextView
+        android:id="@+id/tvReferralCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+
+
+        android:layout_marginTop="8dp"
+
+        android:background="@drawable/dotted_border"
+        android:text="SA1107G"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        custom:layout_constraintBottom_toTopOf="@+id/guideline36"
+        custom:layout_constraintLeft_toLeftOf="parent"
+        custom:layout_constraintRight_toRightOf="parent"
+        custom:layout_constraintTop_toTopOf="@+id/guideline35" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline36"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        custom:layout_constraintGuide_percent="0.9" />
+
+    <com.myoffersapp.ui.AppButton
+        android:id="@+id/btnShare"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+
+        android:layout_marginTop="0dp"
+        android:background="@drawable/button_clicked_background"
+        android:text="SHARE"
+        android:textColor="@color/white"
+        custom:layout_constraintBottom_toBottomOf="parent"
+        custom:layout_constraintHorizontal_bias="0.0"
+        custom:layout_constraintLeft_toLeftOf="parent"
+        custom:layout_constraintRight_toRightOf="parent"
+        custom:layout_constraintTop_toTopOf="@+id/guideline36"
+        custom:layout_constraintVertical_bias="1.0" />
+</android.support.constraint.ConstraintLayout>

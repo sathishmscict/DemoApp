@@ -1,0 +1,56 @@
+<resources>
+    <string name="app_name">OffersApp</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+
+    <string name="next">NEXT</string>
+    <string name="skip">SKIP</string>
+    <string name="start">GOT IT</string>
+
+
+    <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
+    <string name="play_again">Play Again</string>
+    <string name="title_activity_verification">Verification</string>
+    <string name="str_verification_descr1">We have sent you an access code</string>
+    <string name="str_verification_descr2">via SMS for Mobile number : 9723613143 </string>
+
+
+    <!--Welcome Screen Related Links-->
+    <string name="str_slider_2">Get coupon on your first billing</string>
+    <string name="str_slider_1">Great Offers</string>
+    <string name="str_slider_3">Get coupon by refering friends</string>
+
+
+    <!--Login Screen Strings-->
+    <string name="title_activity_login">Offers App Login</string>
+    <string name="str_terms_and_conditions"><u>Terms and Conditions</u></string>
+    <string name="str_login_with">Login With</string>
+    <string name="str_login_with_google">Google</string>
+    <string name="str_terms_descr">We won\'t post without your permission.</string>
+    <string name="title_activity_secondary_dashboard">SecondaryDashboard</string>
+
+    <!--Ask Mobile No Activity Strings-->
+    <string name="title_activity_ask_mobile_no">Confirm Details</string>
+    <string name="hint_name">Name</string>
+    <string name="hint_email">Email (Optional)</string>
+    <string name="hint_mobile">Mobile</string>
+
+    <!--Secondary Dashboard-->
+    <string name="str_clain_firsrt_offer_descr">Thank you for downloading App \n claim your first coupon</string>
+    <string name="str_first_bill_offer_descr">Get Coupon of Rs.500/- On your \n First billing</string>
+    <string name="str_referral_offer_descr">Get Coupons upto Rs. 2000/- By \nReferring to your 3 friends</string>
+    <string name="title_activity_vendors">Vendors</string>
+    <string name="title_activity_refer_and_earn_tab">Refer &amp; Earn</string>
+
+    <!--InviteFragment-->
+    <string name="str_referal_fragment_descr">Share the Offers App along with your uniques code and earn Offer everytime your friend refer and  first transact</string>
+    <string name="str_noreferal_found">Once your friends refer your referral code.you will see referral list here.</string>
+    <string name="title_activity_display_deals_acivity">DisplayDeals</string>
+    <string name="title_activity_single_deal_dispaly">SingleDealDispaly</string>
+
+
+</resources>
