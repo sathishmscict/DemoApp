@@ -44,14 +44,25 @@
     <string name="str_clain_firsrt_offer_descr">Thank you for downloading App \n claim your first coupon</string>
     <string name="str_first_bill_offer_descr">Get Coupon of Rs.500/- On your \n First billing</string>
     <string name="str_referral_offer_descr">Get Coupons upto Rs. 2000/- By \nReferring to your 3 friends</string>
+
+    <string name="str_referral_offer_descr2">Give Offer to your friend and get exclusive offer when they do first transaction</string>
     <string name="title_activity_vendors">Vendors</string>
     <string name="title_activity_refer_and_earn_tab">Refer &amp; Earn</string>
 
     <!--InviteFragment-->
     <string name="str_referal_fragment_descr">Share the Offers App along with your uniques code and earn Offer everytime your friend refer and  first transact</string>
     <string name="str_noreferal_found">Once your friends refer your referral code.you will see referral list here.</string>
+
+    <string name="str_no_earned_offers_found">You will see free/exclusive/gifted coupons list here.</string>
     <string name="title_activity_display_deals_acivity">DisplayDeals</string>
     <string name="title_activity_single_deal_dispaly">SingleDealDispaly</string>
+    <string name="title_activity_display_qrcode">DisplayQRCode</string>
+
+    <!--Offer History Fragment-->
+    <string name="str_no_offer_history_found">Once you used offers.you will see used offers list here.</string>
+    <string name="api_error">System Error. Please try again later!</string>
+    <string name="server_error">System Error. Please try again later!</string>
+    <string name="title_activity_offer_review">OfferReview</string>
 
 
 </resources>

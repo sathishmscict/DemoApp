@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -39,6 +40,7 @@ public class ReferAndEarnTabActivity extends AppCompatActivity {
     private android.content.Context context = this;
     private SessionManager sessionmanager;
     private HashMap<String, String> userDetails = new HashMap<String, String>();
+    private String TAG  = ReferAndEarnTabActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,20 +124,38 @@ public class ReferAndEarnTabActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (item.getItemId() == android.R.id.home) {
-            Intent intent = new Intent(context, SecondaryDashboard.class);
-            startActivity(intent);
+            Intent  i =null;
+            try {
+                i = new Intent(context, Class.forName(context.getPackageName() + "." + getIntent().getStringExtra(AllKeys.ACTIVITYNAME)));
+                i.putExtra("ActivityName", getIntent().getStringExtra(AllKeys.ACTIVITYNAME));
+            } catch (ClassNotFoundException e) {
+                i = new Intent(context, DashBoardActivity.class);
+                e.printStackTrace();
+            }
+            startActivity(i);
             finish();
-
         }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = new Intent(context, SecondaryDashboard.class);
-        startActivity(intent);
+
+
+        Intent  i =null;
+        try {
+            Log.d(TAG,  "Activity Name : "+getIntent().getStringExtra(AllKeys.ACTIVITYNAME));
+            i = new Intent(context, Class.forName(context.getPackageName() + "." + getIntent().getStringExtra(AllKeys.ACTIVITYNAME)));
+            i.putExtra("ActivityName", getIntent().getStringExtra(AllKeys.ACTIVITYNAME));
+        } catch (ClassNotFoundException e) {
+            i = new Intent(context, DashBoardActivity.class);
+            e.printStackTrace();
+        }
+        startActivity(i);
         finish();
+        super.onBackPressed();
+
+
     }
 
 

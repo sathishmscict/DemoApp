@@ -11,7 +11,6 @@ import java.util.List;
 
 public class CategoryData
 {
-
         @SerializedName("MESSAGE")
         @Expose
         private String mESSAGE;
@@ -90,6 +89,12 @@ public class CategoryData
         @SerializedName("image")
         @Expose
         private String image;
+        @SerializedName("vendorcount")
+        @Expose
+        private String vendorcount;
+        @SerializedName("offercount")
+        @Expose
+        private String offercount;
 
         public String getCategoryid() {
             return categoryid;
@@ -145,6 +150,22 @@ public class CategoryData
 
         public void setImage(String image) {
             this.image = image;
+        }
+
+        public String getVendorcount() {
+            return vendorcount;
+        }
+
+        public void setVendorcount(String vendorcount) {
+            this.vendorcount = vendorcount;
+        }
+
+        public String getOffercount() {
+            return offercount;
+        }
+
+        public void setOffercount(String offercount) {
+            this.offercount = offercount;
         }
 
     }

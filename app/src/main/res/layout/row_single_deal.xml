@@ -17,6 +17,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/llDeal"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
 
@@ -38,9 +39,6 @@
                 android:scaleType="fitCenter"
 
 
-                android:src="@drawable/rounded_shape_accent"
-
-
                 android:text="1"
                 android:textColor="@color/white"
                 android:textSize="24sp" />
@@ -48,8 +46,8 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:layout_marginBottom="10dp"
-                android:layout_weight="0.6"
+
+                android:layout_weight="0.4"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -62,71 +60,121 @@
 
                     android:clickable="false"
                     android:gravity="center_vertical"
+                    android:maxLines="2"
                     android:paddingLeft="8dp"
-                    android:text="Title"
+                    android:text="Title "
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     android:textColor="@color/colorPrimary"
 
                     android:textStyle="bold" />
 
+                <RatingBar
+                    android:id="@+id/ratingBar"
+                    style="?android:attr/ratingBarStyleSmall"
 
-            </LinearLayout>
-
-            <View
-                android:id="@+id/viewOfferLine"
-                android:layout_width="3dp"
-                android:layout_height="fill_parent"
-
-                android:background="@drawable/dotted_border" />
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <com.myoffersapp.ui.AppTextView
-                    android:id="@+id/tvUnitPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
 
-                    android:background="@drawable/icon_line"
-                    android:backgroundTint="#e41212"
-                    android:clickable="false"
+                    android:layout_gravity="center|left"
+                    android:numStars="5"
 
-                    android:gravity="center"
-                    android:layout_gravity="center"
-                    android:paddingLeft="8dp"
-                    android:text="10"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:textColor="#e41212"
 
-                    android:textStyle="bold" />
+                    android:paddingLeft="8dp" />
 
                 <com.myoffersapp.ui.AppTextView
-                    android:id="@+id/tvOfferDiscount"
+                    android:id="@+id/tvDistanceInkm"
                     android:layout_width="fill_parent"
+
                     android:layout_height="wrap_content"
-
-
-                    android:clickable="false"
-                    android:gravity="center"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:gravity="center|left"
                     android:paddingLeft="8dp"
-                    android:text="Price"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:textColor="@color/colorPrimary"
 
-                    android:textStyle="bold" />
+
+                    android:paddingRight="8dp"
+                    android:text="0km"
+                    android:textColor="@color/colorPrimary" />
+
+
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center|left"
+                    android:paddingLeft="8dp"
+
+                    android:layout_height="wrap_content">
+                    <com.myoffersapp.ui.AppTextView
+                        android:id="@+id/tvUnitPrice"
+                        android:layout_width="wrap_content"
+
+                        android:layout_height="wrap_content"
+
+
+                        android:layout_gravity="center"
+                        android:background="@drawable/icon_line"
+                        android:backgroundTint="#e41212"
+
+                        android:clickable="false"
+                        android:gravity="center"
+                        android:paddingLeft="8dp"
+                        android:text="10"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textColor="#e41212"
+
+                        android:textStyle="bold" />
+
+                    <com.myoffersapp.ui.AppTextView
+                        android:id="@+id/tvOfferDiscount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+
+                        android:clickable="false"
+                        android:gravity="center"
+                        android:paddingLeft="8dp"
+                        android:text="Price"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textColor="@color/colorPrimary"
+
+                        android:textStyle="bold" />
+
+                    </LinearLayout>
+                <com.myoffersapp.ui.AppTextView
+                    android:id="@+id/tvRemaingCount"
+                    android:layout_width="fill_parent"
+                    android:visibility="gone"
+
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:gravity="center|left"
+                    android:paddingLeft="8dp"
+
+
+                    android:paddingRight="8dp"
+                    android:text="RemainingCount"
+                    android:textColor="@color/colorPrimaryText" />
 
 
             </LinearLayout>
 
 
+
+
         </LinearLayout>
 
+        <Button
+            android:id="@+id/btnClaimFreeCoupon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_clicked_background"
+            android:text="Pick Free Coupon"
+            android:textColor="@color/white" />
 
     </LinearLayout>
 

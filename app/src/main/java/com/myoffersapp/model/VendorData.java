@@ -11,8 +11,6 @@ import java.util.List;
 
 public class VendorData {
 
-
-
     @SerializedName("MESSAGE")
     @Expose
     private String mESSAGE;
@@ -68,8 +66,13 @@ public class VendorData {
     public void setData(List<Datum> data) {
         this.data = data;
     }
-    public class Datum
-    {
+
+
+
+    //////////////////////////////////////////////////////////////////////////////
+
+
+    public class Datum {
 
         @SerializedName("vendorid")
         @Expose
@@ -146,207 +149,219 @@ public class VendorData {
         @SerializedName("gstno")
         @Expose
         private String gstno;
+        @SerializedName("offercount")
+        @Expose
+        private String offercount;
 
-    public String getVendorid() {
-        return vendorid;
+        public String getVendorid() {
+            return vendorid;
+        }
+
+        public void setVendorid(String vendorid) {
+            this.vendorid = vendorid;
+        }
+
+        public String getCategoryid() {
+            return categoryid;
+        }
+
+        public void setCategoryid(String categoryid) {
+            this.categoryid = categoryid;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getNoofbranch() {
+            return noofbranch;
+        }
+
+        public void setNoofbranch(String noofbranch) {
+            this.noofbranch = noofbranch;
+        }
+
+        public String getIsactive() {
+            return isactive;
+        }
+
+        public void setIsactive(String isactive) {
+            this.isactive = isactive;
+        }
+
+        public String getFullname() {
+            return fullname;
+        }
+
+        public void setFullname(String fullname) {
+            this.fullname = fullname;
+        }
+
+        public String getMobile() {
+            return mobile;
+        }
+
+        public void setMobile(String mobile) {
+            this.mobile = mobile;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
+        }
+
+        public String getCreateat() {
+            return createat;
+        }
+
+        public void setCreateat(String createat) {
+            this.createat = createat;
+        }
+
+        public String getUpdateat() {
+            return updateat;
+        }
+
+        public void setUpdateat(String updateat) {
+            this.updateat = updateat;
+        }
+
+        public String getDeleteat() {
+            return deleteat;
+        }
+
+        public void setDeleteat(String deleteat) {
+            this.deleteat = deleteat;
+        }
+
+        public String getVerificationstatus() {
+            return verificationstatus;
+        }
+
+        public void setVerificationstatus(String verificationstatus) {
+            this.verificationstatus = verificationstatus;
+        }
+
+        public String getCommision() {
+            return commision;
+        }
+
+        public void setCommision(String commision) {
+            this.commision = commision;
+        }
+
+        public String getBranchid() {
+            return branchid;
+        }
+
+        public void setBranchid(String branchid) {
+            this.branchid = branchid;
+        }
+
+        public String getImg() {
+            return img;
+        }
+
+        public void setImg(String img) {
+            this.img = img;
+        }
+
+        public String getAddress() {
+            return address;
+        }
+
+        public void setAddress(String address) {
+            this.address = address;
+        }
+
+        public String getLatitude() {
+            return latitude;
+        }
+
+        public void setLatitude(String latitude) {
+            this.latitude = latitude;
+        }
+
+        public String getLongitude() {
+            return longitude;
+        }
+
+        public void setLongitude(String longitude) {
+            this.longitude = longitude;
+        }
+
+        public String getBranchisactive() {
+            return branchisactive;
+        }
+
+        public void setBranchisactive(String branchisactive) {
+            this.branchisactive = branchisactive;
+        }
+
+        public String getBranchcreateat() {
+            return branchcreateat;
+        }
+
+        public void setBranchcreateat(String branchcreateat) {
+            this.branchcreateat = branchcreateat;
+        }
+
+        public String getBranchupdateat() {
+            return branchupdateat;
+        }
+
+        public void setBranchupdateat(String branchupdateat) {
+            this.branchupdateat = branchupdateat;
+        }
+
+        public String getBranchdeleteat() {
+            return branchdeleteat;
+        }
+
+        public void setBranchdeleteat(String branchdeleteat) {
+            this.branchdeleteat = branchdeleteat;
+        }
+
+        public String getFcmtoken() {
+            return fcmtoken;
+        }
+
+        public void setFcmtoken(String fcmtoken) {
+            this.fcmtoken = fcmtoken;
+        }
+
+        public String getBranchmobile() {
+            return branchmobile;
+        }
+
+        public void setBranchmobile(String branchmobile) {
+            this.branchmobile = branchmobile;
+        }
+
+        public String getGstno() {
+            return gstno;
+        }
+
+        public void setGstno(String gstno) {
+            this.gstno = gstno;
+        }
+
+        public String getOffercount() {
+            return offercount;
+        }
+
+        public void setOffercount(String offercount) {
+            this.offercount = offercount;
+        }
+
     }
 
-    public void setVendorid(String vendorid) {
-        this.vendorid = vendorid;
-    }
-
-    public String getCategoryid() {
-        return categoryid;
-    }
-
-    public void setCategoryid(String categoryid) {
-        this.categoryid = categoryid;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getNoofbranch() {
-        return noofbranch;
-    }
-
-    public void setNoofbranch(String noofbranch) {
-        this.noofbranch = noofbranch;
-    }
-
-    public String getIsactive() {
-        return isactive;
-    }
-
-    public void setIsactive(String isactive) {
-        this.isactive = isactive;
-    }
-
-    public String getFullname() {
-        return fullname;
-    }
-
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
-    }
-
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getCreateat() {
-        return createat;
-    }
-
-    public void setCreateat(String createat) {
-        this.createat = createat;
-    }
-
-    public String getUpdateat() {
-        return updateat;
-    }
-
-    public void setUpdateat(String updateat) {
-        this.updateat = updateat;
-    }
-
-    public String getDeleteat() {
-        return deleteat;
-    }
-
-    public void setDeleteat(String deleteat) {
-        this.deleteat = deleteat;
-    }
-
-    public String getVerificationstatus() {
-        return verificationstatus;
-    }
-
-    public void setVerificationstatus(String verificationstatus) {
-        this.verificationstatus = verificationstatus;
-    }
-
-    public String getCommision() {
-        return commision;
-    }
-
-    public void setCommision(String commision) {
-        this.commision = commision;
-    }
-
-    public String getBranchid() {
-        return branchid;
-    }
-
-    public void setBranchid(String branchid) {
-        this.branchid = branchid;
-    }
-
-    public String getImg() {
-        return img;
-    }
-
-    public void setImg(String img) {
-        this.img = img;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(String latitude) {
-        this.latitude = latitude;
-    }
-
-    public String getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(String longitude) {
-        this.longitude = longitude;
-    }
-
-    public String getBranchisactive() {
-        return branchisactive;
-    }
-
-    public void setBranchisactive(String branchisactive) {
-        this.branchisactive = branchisactive;
-    }
-
-    public String getBranchcreateat() {
-        return branchcreateat;
-    }
-
-    public void setBranchcreateat(String branchcreateat) {
-        this.branchcreateat = branchcreateat;
-    }
-
-    public String getBranchupdateat() {
-        return branchupdateat;
-    }
-
-    public void setBranchupdateat(String branchupdateat) {
-        this.branchupdateat = branchupdateat;
-    }
-
-    public String getBranchdeleteat() {
-        return branchdeleteat;
-    }
-
-    public void setBranchdeleteat(String branchdeleteat) {
-        this.branchdeleteat = branchdeleteat;
-    }
-
-    public String getFcmtoken() {
-        return fcmtoken;
-    }
-
-    public void setFcmtoken(String fcmtoken) {
-        this.fcmtoken = fcmtoken;
-    }
-
-    public String getBranchmobile() {
-        return branchmobile;
-    }
-
-    public void setBranchmobile(String branchmobile) {
-        this.branchmobile = branchmobile;
-    }
-
-    public String getGstno() {
-        return gstno;
-    }
-
-    public void setGstno(String gstno) {
-        this.gstno = gstno;
-    }
-
-}
 
 }

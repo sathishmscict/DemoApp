@@ -35,6 +35,7 @@ import com.myoffersapp.adapter.CategoryAdapterRecyclerView;
 import com.myoffersapp.helper.AllKeys;
 import com.myoffersapp.helper.CommonMethods;
 import com.myoffersapp.model.CategoryData;
+import com.myoffersapp.model.SlidersData;
 import com.myoffersapp.retrofit.ApiClient;
 import com.myoffersapp.retrofit.ApiInterface;
 
@@ -55,7 +56,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements  BaseSliderView.OnSliderClickListener {
 
 
     private Context context = getActivity();
@@ -78,6 +79,10 @@ public class HomeFragment extends Fragment {
 
     private ArrayList<Integer> list_SliderId = new ArrayList<Integer>();
     private ArrayList<String> list_SliderImages = new ArrayList<String>();
+
+    private ArrayList<Integer>     list_SliderCategoryId = new ArrayList<Integer>();
+
+
 
     private ArrayList<String> list_SliderCategoryURL = new ArrayList<String>();
 
@@ -153,6 +158,7 @@ public class HomeFragment extends Fragment {
 
                     Intent intent = new Intent(getActivity(),
                             VendorsActivity.class);
+                    intent.putExtra("VENDORTYPE" , "vendor");
                     sessionManager.setCategoryDetails(list_Vendordata.get(position).getCategoryid(), list_Vendordata.get(position).getCategoryname());
 
 
@@ -248,8 +254,109 @@ public class HomeFragment extends Fragment {
 
     }
 
-    private void getSlidersByTypeDetailsFromServer() {
-        showDialog();        final String url_getSldierByType = AllKeys.WEBSITE + "ViewBanner?type=banner&bannertype=category&categoryid=0&vendorid=0";
+    private void getSlidersByTypeDetailsFromServer()
+    {
+        CommonMethods.showDialog(spotsDialog);
+
+
+
+
+
+
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        Log.d(TAG ,"URL : "+AllKeys.WEBSITE + "ViewBanner?type=banner&bannertype=category&categoryid=0&vendorid=0");
+        apiService.getSlidersDataFromServer("banner","category","0","0").enqueue(new Callback<SlidersData>() {
+            @Override
+            public void onResponse(Call<SlidersData> call, retrofit2.Response<SlidersData> response) {
+
+                Log.d(TAG, "Response Code : " + response.code());
+                Log.d(TAG, "ViewBanner API Called Success" + response.toString());
+
+
+                if (response.code() == 200) {
+
+                    String str_error = response.body().getMESSAGE();
+                    String str_error_original = response.body().getORIGINALERROR();
+                    boolean error_status = response.body().getERRORSTATUS();
+                    boolean record_status = response.body().getRECORDS();
+
+
+
+                    if (error_status == false) {
+
+                        if (record_status == true) {
+
+
+                            url_maps.clear();
+                            list_SliderId.clear();
+                            list_SliderImages.clear();
+
+                            list_SliderCategoryURL.clear();
+                            list_SliderCategoryId.clear();
+                            List<SlidersData.Datum> arr = response.body().getData();
+
+                            for (int i = 0; i < arr.size(); i++) {
+                                //JSONObject c = arr.getJSONObject(i);
+
+                                String url_image_url = arr.get(i).getImg();
+                                //c.getString(AllKeys.TAG_BANNER_IMAGE_URL);
+
+                                url_maps.put(String.valueOf(i), url_image_url);
+                                list_SliderId.add(i);
+
+                                list_SliderImages.add(url_image_url);
+
+                                list_SliderCategoryId.add(Integer.parseInt(arr.get(i).getCategoryid()));
+
+
+
+                            }
+                            FillDashBoardSliders();
+
+
+
+
+                        }
+                    }
+
+
+                } else {
+                    Toast.makeText(context, "Error code : " + response.code(), Toast.LENGTH_SHORT).show();
+                }
+
+                CommonMethods.hideDialog(spotsDialog);
+
+
+            }
+
+            @Override
+            public void onFailure(Call<SlidersData> call, Throwable t) {
+
+
+                Toast.makeText(getActivity(), "Unable to submit post to API.", Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "Unable to submit post to API. Message  = " + t.getMessage());
+                Log.d(TAG, "Unable to submit post to API. LocalizedMessage = " + t.getLocalizedMessage());
+                Log.d(TAG, "Unable to submit post to API. Cause = " + t.getCause());
+                Log.d(TAG, "Unable to submit post to API. StackTrace = " + t.getStackTrace());
+
+
+
+
+                if(t.getMessage().equals("timeout"))
+                {
+                    // getCategoryDetailsFromServer();
+                }
+
+                CommonMethods.hideDialog(spotsDialog);
+            }
+        });
+
+
+
+
+
+
+       /* final String url_getSldierByType = AllKeys.WEBSITE + "ViewBanner?type=banner&bannertype=category&categoryid=0&vendorid=0";
         Log.d(TAG, "url ViewBanner : " + url_getSldierByType);
         StringRequest str_getSlidersByType = new StringRequest(Request.Method.GET, url_getSldierByType, new Response.Listener<String>() {
             @Override
@@ -309,17 +416,17 @@ public class HomeFragment extends Fragment {
             }
 
         });
-    /*    str_getSlidersByType.setRetryPolicy(new DefaultRetryPolicy(
+    *//*    str_getSlidersByType.setRetryPolicy(new DefaultRetryPolicy(
                 MY_SOCKET_TIMEOUT_MS,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));*/
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));*//*
 
-        MyApplication.getInstance().addToRequestQueue(str_getSlidersByType);
+        MyApplication.getInstance().addToRequestQueue(str_getSlidersByType);*/
 
     }
 
     private void FillDashBoardSliders() {
-        showDialog();
+
 
 
         for (String name : url_maps.keySet()) {
@@ -328,6 +435,7 @@ public class HomeFragment extends Fragment {
             textSliderView
                     .description(name)
                     .image(url_maps.get(name))
+                    .setOnSliderClickListener(HomeFragment.this)
                     /*.image(url_maps.get(name))*/
                     .setScaleType(BaseSliderView.ScaleType.Fit);
             ;
@@ -386,7 +494,7 @@ public class HomeFragment extends Fragment {
 
 
 //        mDemoSlider.addOnPageChangeListener(ge);
-        hideDialog();
+       // hideDialog();
 
     }
 
@@ -426,6 +534,40 @@ public class HomeFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onSliderClick(BaseSliderView slider) {
+
+        if (list_SliderId.size() > 0) {
+
+            int id = list_SliderId.indexOf(Integer.parseInt(slider.getBundle().get("extra").toString()));
+
+           /* String catid = list_SliderCategoryURL.get(id);
+            catid = catid.substring(catid.lastIndexOf("=") + 1, catid.length());
+            Integer.parseInt(catid)*/;
+
+            try {
+
+                Intent intent = new Intent(getActivity(),
+                        VendorsActivity.class);
+                intent.putExtra("VENDORTYPE" , "vendor");
+
+                sessionManager.setCategoryDetails(String.valueOf(list_SliderCategoryId.get(id)),"");
+
+
+                intent.putExtra("ActivityName", TAG);
+
+                startActivity(intent);
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+        }
+
     }
 
     /**

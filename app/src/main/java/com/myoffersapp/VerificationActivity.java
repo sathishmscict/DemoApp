@@ -466,7 +466,7 @@ public class VerificationActivity extends AppCompatActivity {
                         Toast.makeText(context, "SMS sent successfully", Toast.LENGTH_SHORT).show();
 
                     } else {
-                        Toast.makeText(context, "Error in message sending,try again...", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Error in message sending,try again...\n"+obj.getString(AllKeys.TAG_ERROR_ORIGINAL), Toast.LENGTH_SHORT).show();
                     }
 
 

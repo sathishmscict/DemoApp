@@ -29,12 +29,21 @@ public class SessionManager {
 
     public static final String KEY_USER_AVATAR_URL = "UserAvatarURL", KEY_USER_EMAIL = "UserEmail", KEY_USER_NAME = "UserName";
 
+    public static final String KEY_OFFFER_TYPE_ID =  "OfferTypeId";
+
     public static final String KEY_ENODEDED_STRING = "Encoded_string";
     public static final String KEY_USER_ID = "UserId", KEY_USER_VERIFICATION_STATUS = "VerificationStatus", KEY_USER_GENDER = "Gender", KEY_USER_DOB = "DOB", KEY_USER_REFERAL_CODE = "ReferralCode", KEY_USER_DEVICE_TYPE = "DeviceType", KEY_USER_IS_FIRST_BILL = "IsFirstBill", KEY_USER_IS_ACTIVE = "IsActive", KEY_USER_IS_REFERRED = "IsReferred", KEY_USER_MOBILE = "UserMobile";
 
     public static final String KEY_CATEGORYID = "categoryId", KEY_CATEGORY_NAME = "categoryName";
     public static final String KEY_VENDORID = "VendorId", KEY_BRANCHIID = "BranchId";
-    public static final String KEY_OFFERID = "OfferId";
+    public static final String KEY_OFFERID = "OfferId",KEY_OFFER_TITLE = "offerTitle";
+
+    public static final String KEY_REFERALID = "referalId";
+
+    public static final String KEY_LATTITUDE = "Lattitude", KEY_LONGTITUDE = "Longtitude",  KEY_COMPANYNAME = "CompanyName";
+
+    public static final String KEY_DISTANCE_INTERVAL_IN_KM="DistanceInKm";
+
 
 
     public SessionManager(Context context) {
@@ -53,6 +62,20 @@ public class SessionManager {
     }
 
 
+    public void setGPSLocations(String lattitude, String longtitude, String companyname) {
+
+
+
+
+        editor.putString(KEY_LATTITUDE, lattitude);
+        editor.putString(KEY_LONGTITUDE, longtitude);
+        editor.putString(KEY_COMPANYNAME, companyname);
+
+
+        editor.commit();
+    }
+
+
     public void CheckSMSVerificationActivity(String reccode, String actstatus) {
 
         editor.putString(KEY_RECEIVECODE, reccode);
@@ -61,10 +84,23 @@ public class SessionManager {
 
     }
 
+    public  void  setDistanceInterval(String distanceKM)
+    {
+        editor.putString(KEY_DISTANCE_INTERVAL_IN_KM , distanceKM);
+        editor.commit();
+    }
+
+
 
     public void setUserImageUrl(String imgURL) {
 
         editor.putString(KEY_USER_AVATAR_URL, imgURL);
+    }
+
+    public void setOfferTypeId(int offerTypeId)
+    {
+        editor.putString(KEY_OFFFER_TYPE_ID , String.valueOf(offerTypeId));
+        editor.commit();
     }
 
 
@@ -75,6 +111,23 @@ public class SessionManager {
 
 
         HashMap<String, String> user = new HashMap<String, String>();
+
+
+
+        user.put(KEY_REFERALID  , pref.getString(KEY_REFERALID,"0"));
+
+
+        user.put(KEY_OFFFER_TYPE_ID , pref.getString(KEY_OFFFER_TYPE_ID , "1"));
+        user.put(KEY_DISTANCE_INTERVAL_IN_KM , pref.getString(KEY_DISTANCE_INTERVAL_IN_KM , "10"));
+
+        user.put(KEY_OFFER_TITLE , pref.getString(KEY_OFFER_TITLE , ""));
+
+        user.put(KEY_COMPANYNAME, pref.getString(KEY_COMPANYNAME, ""));
+
+        user.put(KEY_LATTITUDE, pref.getString(KEY_LATTITUDE, "0"));
+
+        user.put(KEY_LONGTITUDE, pref.getString(KEY_LONGTITUDE, "0"));
+
 
 
         user.put(KEY_OFFERID, pref.getString(KEY_OFFERID, "0"));
@@ -200,8 +253,17 @@ public class SessionManager {
         editor.commit();
     }
 
-    public void setOfferDetails(String offerid) {
+    public void setOfferDetails(String offerid,String offerTitle) {
         editor.putString(KEY_OFFERID, offerid);
+        editor.putString(KEY_OFFER_TITLE, offerTitle);
+
+        editor.commit();
+    }
+
+
+    public void setReferalID(String referalid) {
+
+        editor.putString(KEY_REFERALID , referalid);
         editor.commit();
     }
 }

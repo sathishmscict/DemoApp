@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@color/screen_background"
     android:orientation="vertical">
 
 
@@ -31,7 +32,7 @@
         custom:layout_constraintLeft_toLeftOf="parent"
         custom:layout_constraintTop_toBottomOf="@+id/linearLayout2"
         custom:layout_constraintHorizontal_bias="0.0"
-        custom:layout_constraintVertical_bias="0.0"
+        custom:layout_constraintVertical_bias="1.0"
         custom:layout_constraintRight_toRightOf="parent" />
 
     <LinearLayout

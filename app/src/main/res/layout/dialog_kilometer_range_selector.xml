@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+
+
+    android:orientation="vertical">
+
+
+        <com.xw.repo.BubbleSeekBar
+
+            android:id="@+id/demo_4_seek_bar_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="20dp"
+            app:bsb_max="100"
+            app:bsb_always_show_bubble="false"
+            app:bsb_auto_adjust_section_mark="false"
+            app:bsb_second_track_color="@color/color_red"
+            app:bsb_section_count="5"
+            app:bsb_section_text_position="below_section_mark"
+            app:bsb_show_section_mark="true"
+            app:bsb_show_section_text="true"
+            app:bsb_show_thumb_text="true"
+
+            app:bsb_touch_to_seek="true"
+            app:bsb_track_color="@color/color_red_light" />
+
+    <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
+        android:id="@+id/seekBarkm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:dsb_min="2"
+        app:dsb_max="15"
+        />
+
+
+
+        <Button
+            android:id="@+id/btnrange"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_clicked_background"
+            android:clickable="false"
+            android:text="near by 10 k.m."
+            android:textColor="@color/white"
+
+            android:textSize="16dp" />
+
+
+    </LinearLayout>
+
+

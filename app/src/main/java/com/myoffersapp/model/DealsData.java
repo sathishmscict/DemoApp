@@ -9,8 +9,8 @@ import java.util.List;
  * Created by SATHISH on 29-Jul-17.
  */
 
-public class DealsData {
 
+public class DealsData {
 
     @SerializedName("MESSAGE")
     @Expose
@@ -67,7 +67,6 @@ public class DealsData {
     public void setData(List<Datum> data) {
         this.data = data;
     }
-
     public class Datum {
 
         @SerializedName("offerid")
@@ -91,6 +90,15 @@ public class DealsData {
         @SerializedName("unitprice")
         @Expose
         private String unitprice;
+        @SerializedName("rating")
+        @Expose
+        private String rating;
+        @SerializedName("latitude")
+        @Expose
+        private String latitude;
+        @SerializedName("longitude")
+        @Expose
+        private String longitude;
 
         public String getOfferid() {
             return offerid;
@@ -148,6 +156,31 @@ public class DealsData {
             this.unitprice = unitprice;
         }
 
+        public String getRating() {
+            return rating;
+        }
+
+        public void setRating(String rating) {
+            this.rating = rating;
+        }
+
+        public String getLatitude() {
+            return latitude;
+        }
+
+        public void setLatitude(String latitude) {
+            this.latitude = latitude;
+        }
+
+        public String getLongitude() {
+            return longitude;
+        }
+
+        public void setLongitude(String longitude) {
+            this.longitude = longitude;
+        }
+
     }
 
 }
+

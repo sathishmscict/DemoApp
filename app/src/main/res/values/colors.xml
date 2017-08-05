@@ -2,12 +2,13 @@
 <resources>
     <color name="colorPrimary">#363B42</color>
     <color name="colorPrimaryDark">#2B3034</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#536DFD</color>
 
     <color name="colorPrimaryText">#212121</color>
     <color name="colorSecondaryText">#757575</color>
 
 
+    <color name="yellow">#FFC600</color>
 
     <color name="dot_dark_screen1">#A5C536</color>
     <color name="dot_dark_screen2">#14a895</color>
@@ -38,5 +39,11 @@
 
 
     </array>
+
+    <color name="color_red">#FF6A6E</color>
+    <color name="color_red_light">#FFB4B6</color>
+    <color name="screen_background">#EFEFEF</color>
+    <color name="colorGreen">#229f11</color>
+
 
 </resources>

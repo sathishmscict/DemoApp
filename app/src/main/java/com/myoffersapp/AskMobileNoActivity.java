@@ -47,6 +47,13 @@ public class AskMobileNoActivity extends AppCompatActivity {
     @BindView(R.id.edtMobileWrapper)
     TextInputLayout edtMobileWrapper;
 
+    @BindView(R.id.edtDob)
+    EditText edtDob;
+
+    @BindView(R.id.edtDobWrapper)
+    TextInputLayout edtDobWrapper;
+
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     private Context context = this;
@@ -151,7 +158,7 @@ public class AskMobileNoActivity extends AppCompatActivity {
 
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
 
-        Log.d(TAG, "Paramteres of login_screen_logo_home6 : " + "login_screen_logo_home6," + "," + name + "," + email + ",1," + Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID) + ",android,0.0,0.0");
+        Log.d(TAG, "Paramteres of updateprofile : " + "updateprofile," + "," + name + "," + email + ",1," + Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID) + ",android,0.0,0.0");
 
         apiService.sendAndUpdateProfileInfo("updateprofile",userDetails.get(SessionManager.KEY_USER_ID),name,email,userDetails.get(SessionManager.KEY_USER_GENDER),userDetails.get(SessionManager.KEY_USER_DOB),mobile).enqueue(new Callback<SingleUserInfo>() {
             @Override

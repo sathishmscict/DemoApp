@@ -1,10 +1,16 @@
 package com.myoffersapp;
 
+import android.*;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -13,7 +19,10 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.util.Log;
+import android.view.SubMenu;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -23,17 +32,40 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.codemybrainsout.ratingdialog.RatingDialog;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
+import com.myoffersapp.fragments.FragmentProfile;
 import com.myoffersapp.fragments.HomeFragment;
+import com.myoffersapp.fragments.OfferHistoryFragment;
 import com.myoffersapp.helper.AllKeys;
 import com.myoffersapp.helper.CommonMethods;
+import com.myoffersapp.helper.GPSTracker;
+import com.myoffersapp.model.FCMReponse;
+import com.myoffersapp.retrofit.ApiClient;
+import com.myoffersapp.retrofit.ApiInterface;
+import com.myoffersapp.ui.CustomTypefaceSpan;
+import com.r0adkll.slidr.Slidr;
+import com.r0adkll.slidr.model.SlidrConfig;
+import com.r0adkll.slidr.model.SlidrListener;
+import com.r0adkll.slidr.model.SlidrPosition;
 
 import java.util.HashMap;
 
 import butterknife.ButterKnife;
 import dmax.dialog.SpotsDialog;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DashBoardActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -49,6 +81,57 @@ public class DashBoardActivity extends AppCompatActivity
 
     private Menu menu;
 
+
+    private void AlertForLocationServices()
+    {
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+        builder.setCancelable(false);
+
+        builder.setMessage(getString(R.string.app_name)+" would like to use your current location to customize your experience.");
+
+
+        /*builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });*/
+        builder.setPositiveButton("Enable GPS", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+
+                startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                //Toast.makeText(context , "Please enable GPS",Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "Enable GPS");
+                //Log.d(TAG , "Device not supported SIM, Please enable GPS ");
+
+            }
+        });
+
+        try {
+            AlertDialog alert11 = builder.create();
+            alert11.show();
+
+            Button buttonbackground = alert11.getButton(DialogInterface.BUTTON_NEGATIVE);
+            //buttonbackground.setBackgroundColor(Color.BLUE);
+            buttonbackground.setTextColor(Color.parseColor("#3F51B5"));
+
+            Button buttonbackground1 = alert11.getButton(DialogInterface.BUTTON_POSITIVE);
+            buttonbackground1.setTextColor(Color.parseColor("#3F51B5"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //buttonbackground1.setBackgroundColor(Color.parseColor("#3F51B5"));
+
+
+        //builder.show();
+
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +139,13 @@ public class DashBoardActivity extends AppCompatActivity
         ButterKnife.bind(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+       /* SlidrConfig config = new SlidrConfig.Builder().position(SlidrPosition.LEFT).scrimColor(Color.WHITE).build();
+        Slidr.attach(this, config);*/
+
+        /*int primary = getResources().getColor(R.color.colorPrimary);
+        int secondary = getResources().getColor(R.color.colorPrimaryDark);
+        Slidr.attach(this, primary, secondary);*/
 
 
         spotsDialog = new SpotsDialog(context);
@@ -88,23 +178,61 @@ public class DashBoardActivity extends AppCompatActivity
         imgProfilePic = (ImageView) headerLayout.findViewById(R.id.imgProfilePic);
 
 
-
         SetUserProfilePictireFromBase64EnodedString();
+
+
+        //Set Custom font family to navigation drawer menu:
+       // navView = (NavigationView) findViewById(R.id.navView);
+        Menu m = navigationView.getMenu();
+        for (int i=0;i<m.size();i++) {
+            MenuItem mi = m.getItem(i);
+
+            //for aapplying a font to subMenu ...
+            SubMenu subMenu = mi.getSubMenu();
+            if (subMenu!=null && subMenu.size() >0 ) {
+                for (int j=0; j <subMenu.size();j++) {
+                    MenuItem subMenuItem = subMenu.getItem(j);
+                    applyFontToMenuItem(subMenuItem);
+                }
+            }
+
+            //the method we have create in activity
+            applyFontToMenuItem(mi);
+        }
+
+
+
+
+
+
+        Dexter.withActivity(DashBoardActivity.this)
+                .withPermission(android.Manifest.permission.ACCESS_FINE_LOCATION)
+                .withListener(new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted(PermissionGrantedResponse response) {
+
+
+                        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                        // startService(new Intent(getBaseContext(), MyLocationService.class));
+                        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || !locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+                            AlertForLocationServices();
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionDenied(PermissionDeniedResponse response) {/* ... */}
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(PermissionRequest
+                                                                           permission, PermissionToken token) {/* ... */}
+                }).check();
+
 
         imgProfilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                    /*Fragment fragment = new FragmentProfile();
 
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.container_body, fragment);
-                    fragmentTransaction.commit();
-
-
-                    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-                    drawer.closeDrawer(GravityCompat.START);*/
 
 
                 getMenuInflater().inflate(R.menu.activity_dash_board_drawer, menu);
@@ -112,9 +240,6 @@ public class DashBoardActivity extends AppCompatActivity
 
                 onNavigationItemSelected(mProfileFrag);
 
-
-                    /*MenuItem mDefaultFrag = (MenuItem) navigationView.findViewById(R.id.nav_profile);
-                    onNavigationItemSelected(mDefaultFrag);*/
 
 
             }
@@ -131,17 +256,76 @@ public class DashBoardActivity extends AppCompatActivity
         setupFragment(null, getString(R.string.app_name));
 
 
+
+        if (userDetails.get(SessionManager.KEY_USER_IS_FIRST_BILL).equals("1")) {
+
+            UpdateFcmTokenDetailsToServer();
+
+        }
+
+
     }
 
     private void UpdateFcmTokenDetailsToServer() {
 
+        CommonMethods.showDialog(spotsDialog);
+
+        String fcm_tokenid = "";
+        try {
+            MyFirebaseInstanceIDService mid = new MyFirebaseInstanceIDService();
+            fcm_tokenid = String.valueOf(mid.onTokenRefreshNew(context));
+
+        } catch (Exception e) {
+            fcm_tokenid = "";
+            e.printStackTrace();
+        }
+
+
+
+        ApiInterface apiService= ApiClient.getClient().create(ApiInterface.class);
+
+        Log.d(TAG , "URL UpdateFCM Token : "+ AllKeys.WEBSITE +"type=fcmtoken?userid="+ userDetails.get(SessionManager.KEY_USER_ID) +"&token="+ fcm_tokenid +"&devicetype=android");
+        apiService.sendFCMTokenToServer("fcmtoken",userDetails.get(SessionManager.KEY_USER_ID),fcm_tokenid,"android").enqueue(new Callback<FCMReponse>() {
+            @Override
+            public void onResponse(Call<FCMReponse> call, Response<FCMReponse> response) {
+
+                if(response.code() != 200)
+                {
+
+                    CommonMethods.showServerError(context , response.code());
+                }
+                CommonMethods.hideDialog(spotsDialog);
+            }
+
+            @Override
+            public void onFailure(Call<FCMReponse> call, Throwable t) {
+
+                CommonMethods.displayFailerError(context,TAG,t);
+                CommonMethods.hideDialog(spotsDialog);
+
+
+            }
+        });
+
+
+
 
     }
+
+    private void applyFontToMenuItem(MenuItem mi) {
+        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/mavenpro_regular.ttf");
+        SpannableString mNewTitle = new SpannableString(mi.getTitle());
+        mNewTitle.setSpan(new CustomTypefaceSpan("" , font), 0 , mNewTitle.length(),  Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        mi.setTitle(mNewTitle);
+    }
+
 
 
     private void SetUserProfilePictireFromBase64EnodedString() {
 
         CommonMethods.showDialog(spotsDialog);
+
+
 
         tvUserName.setText(userDetails.get(SessionManager.KEY_USER_NAME));
         tvEmail.setText(userDetails.get(SessionManager.KEY_USER_EMAIL));
@@ -233,18 +417,71 @@ public class DashBoardActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        SetUserProfilePictireFromBase64EnodedString();
+
         if (id == R.id.nav_home) {
             // Handle the camera action
+            setupFragment(new HomeFragment() , "Home");
         } else if (id == R.id.nav_profile) {
 
-        } else if (id == R.id.nav_logout) {
+            setupFragment(new FragmentProfile() , "Profile");
+        }
+        else if (id == R.id.nav_referal_history) {
+
+            Intent intent = new Intent(context , ReferAndEarnTabActivity.class);
+           // Intent intent = new Intent(context , AskMobileNoActivity.class);
+            intent.putExtra(AllKeys.ACTIVITYNAME , TAG);
+            startActivity(intent);
+            finish();
+        }
+        else if(id == R.id.nav_offer_history)
+        {
+
+
+            setupFragment(new OfferHistoryFragment() , "Offer History");
+        }
+        else if(id == R.id.nav_nearby)
+        {
+
+
+            Intent intent = new Intent(context , VendorsActivity.class);
+            intent.putExtra("VENDORTYPE" , "all");
+            startActivity(intent);
+            finish();
+
+
+
+
+        }
+
+        else if (id == R.id.nav_logout) {
 
             sessionManager.logoutUser();
 
         }
         else if (id == R.id.nav_rateapp) {
 
-            AppRater.app_launched(this);
+
+
+
+            final RatingDialog ratingDialog = new RatingDialog.Builder(context)
+                    .threshold(1)
+                    .session(1)
+                    .ratingBarColor(R.color.yellow)
+                    .playstoreUrl("https://play.google.com/store/apps/details?id="+ context.getPackageName() +"")
+                    .title("If you enjoy using " + getString(R.string.app_name) + ", please take a moment to rate it. Thanks for your support!")
+                    .titleTextColor(R.color.black)
+                    .onRatingBarFormSumbit(new RatingDialog.Builder.RatingDialogFormListener() {
+                        @Override
+                        public void onFormSubmitted(String feedback) {
+
+                        }
+                    }).build();
+
+            ratingDialog.show();
+
+
+           // AppRater.app_launched(this);
 
         }
 

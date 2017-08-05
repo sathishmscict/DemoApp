@@ -1,5 +1,6 @@
 package com.myoffersapp.helper;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -11,12 +12,22 @@ import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
+
+import com.myoffersapp.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 import dmax.dialog.SpotsDialog;
@@ -35,6 +46,41 @@ public class CommonMethods {
 
 
 
+    public static final String convertEncodedString(String str) {
+        String enoded_string = null;
+        try {
+            enoded_string = URLEncoder.encode(str, "utf-8").replace(".", "%2E");
+            enoded_string = URLEncoder.encode(str, "utf-8").replace("+", "%20");
+
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return enoded_string;
+    }
+    public static final String convertToJsonDateFormat(String cur_date) {
+
+        Log.d("Passed Date : ", cur_date);
+        SimpleDateFormat dateFormat = null;
+        Date date = null;
+        try {
+            dateFormat = new SimpleDateFormat("yyyy-MM-dd",
+                    Locale.getDefault());
+
+//String string = "January 2, 2010";
+            DateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
+            date = format.parse(cur_date);
+            System.out.println(date);
+        } catch (Exception e) {
+            Log.d("Convert DataFormat :: ", e.getMessage());
+        }
+
+
+        //Date date = new Date();
+
+        return dateFormat.format(date);
+
+
+    }
 
 
     public static  final Pattern EMAIL_ADDRESS_PATTERN = Pattern
@@ -109,6 +155,23 @@ public class CommonMethods {
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
 
+    public static void displayFailerError(Context context , String TAG , Throwable t) {
+        Toast.makeText(context, "Unable to submit post to API.", Toast.LENGTH_SHORT).show();
+        Log.d(TAG, "Unable to submit post to API. Message  = " + t.getMessage());
+        Log.d(TAG, "Unable to submit post to API. LocalizedMessage = " + t.getLocalizedMessage());
+        Log.d(TAG, "Unable to submit post to API. Cause = " + t.getCause());
+        Log.d(TAG, "Unable to submit post to API. StackTrace = " + t.getStackTrace());
+
+        Toast.makeText(context, "Sorry , try again...", Toast.LENGTH_SHORT).show();
+    }
+
+    public static void showServerError(Context  context,Integer errorCode) {
+
+
+        Toast.makeText(context , context.getString(R.string.server_error)+" "+errorCode,Toast.LENGTH_SHORT).show();
+
+    }
+
     public interface ClickListener {
         void onClick(View view, int position);
 
@@ -157,6 +220,18 @@ public class CommonMethods {
 
         }
     }
+
+
+/*    public void hideKeyboard() {
+        InputMethodManager inputMethodManager = (InputMethodManager) this.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = this.getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(this);
+        }
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }*/
 
 
 

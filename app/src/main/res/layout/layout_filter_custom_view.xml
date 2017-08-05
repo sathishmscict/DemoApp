@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/llmain"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#FFF"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ScrollView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical">
+
+                    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        xmlns:tools="http://schemas.android.com/tools"
+                        android:id="@+id/rl2"
+                        android:layout_width="match_parent"
+
+                        android:layout_height="fill_parent"
+
+                        android:background="#FFF">
+
+                        <!--
+                                <include
+                                    android:id="@+id/toolbar"
+                                    layout="@layout/toolbar">
+
+                                </include>-->
+
+                        <!--Statrt Toolbar design-->
+                        <!--<android.support.v7.widget.Toolbar  xmlns:android="http://schemas.android.com/apk/res/android"
+                        xmlns:tools="http://schemas.android.com/tools"
+
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+
+                        android:minHeight="?attr/actionBarSize"
+                        android:background="#2c3039"
+                        android:id="@+id/toolbar" >
+
+
+
+
+
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+
+
+                            <LinearLayout
+                                android:layout_weight="1"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_weight="0"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/icon_cancel"
+
+                                    />
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+
+
+
+
+
+
+                    </android.support.v7.widget.Toolbar>-->
+
+                        <!--Complete Toolbar Design-->
+
+
+                        <ScrollView
+                            android:layout_width="match_parent"
+                            android:layout_height="fill_parent"
+
+                            android:scrollbars="none">
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/toolbar"
+                                android:orientation="vertical">
+
+
+
+                                <!--*********color**********-->
+
+
+                                <!--UI For Display Pricing Filter-->
+                                <LinearLayout
+                                    android:id="@+id/llPricing"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <Button
+
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="8dp"
+                                        android:layout_marginRight="10dp"
+                                        android:layout_weight="1"
+                                        android:background="@null"
+                                        android:clickable="false"
+                                        android:gravity="left|center"
+                                        android:text=""
+                                        android:textColor="@color/colorPrimary"
+                                        android:textSize="16dp" />
+                                    <!--Complete Color-->
+                                    <com.myoffersapp.views.RangeBar
+                                        xmlns:custom="http://schemas.android.com/apk/res-auto"
+                                        android:id="@+id/rangebar1"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="70dp"
+                                        android:layout_marginLeft="16dp"
+                                        android:layout_marginRight="16dp"
+                                        custom:pinMaxFont="10sp"
+                                        custom:tickEnd="100"
+                                        custom:tickInterval="1"
+                                        custom:tickStart="0" />
+
+
+
+                                    <LinearLayout
+                                        android:id="@+id/pbutton"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="45dp"
+                                        android:layout_below="@+id/progress"
+                                        android:layout_marginBottom="10dp"
+
+                                        android:orientation="horizontal"
+                                        android:paddingLeft="20dp"
+                                        android:paddingRight="20dp">
+
+                                        <Button
+                                            android:id="@+id/rang1"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:layout_marginRight="10dp"
+                                            android:layout_weight="1"
+                                            android:background="#fcfcfc"
+                                            android:clickable="false"
+                                            android:text="near by 10 k.m."
+                                            android:textColor="@color/colorPrimaryText"
+                                            android:textSize="16dp" />
+
+
+
+                                    </LinearLayout>
+
+                                    <!--Complete UI For Display Pricing Filter-->
+
+
+                                </LinearLayout>
+
+
+                                <!--*******discription***********-->
+
+
+
+
+
+
+                                <!--*******MAN***********-->
+
+
+                            </LinearLayout>
+
+
+                        </ScrollView>
+
+                    </RelativeLayout>
+                </LinearLayout>
+            </ScrollView>
+
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+
+            android:fitsSystemWindows="true">
+
+            <Button
+                android:id="@+id/btnGo"
+
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+
+                android:clickable="false"
+                android:text="APPLY"
+                android:textColor="@color/white"
+                android:textSize="16dp" />
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

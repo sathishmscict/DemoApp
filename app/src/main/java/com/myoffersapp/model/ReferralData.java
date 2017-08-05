@@ -9,6 +9,7 @@ import java.util.List;
  * Created by SATHISH on 28-Jul-17.
  */
 
+
 public class ReferralData {
 
     @SerializedName("MESSAGE")
@@ -84,6 +85,12 @@ public class ReferralData {
         @SerializedName("mobile")
         @Expose
         private String mobile;
+        @SerializedName("isfirstbill")
+        @Expose
+        private String isfirstbill;
+        @SerializedName("isfreecouponselected")
+        @Expose
+        private String isfreecouponselected;
 
         public String getReferalid() {
             return referalid;
@@ -125,8 +132,22 @@ public class ReferralData {
             this.mobile = mobile;
         }
 
+        public String getIsfirstbill() {
+            return isfirstbill;
+        }
+
+        public void setIsfirstbill(String isfirstbill) {
+            this.isfirstbill = isfirstbill;
+        }
+
+        public String getIsfreecouponselected() {
+            return isfreecouponselected;
+        }
+
+        public void setIsfreecouponselected(String isfreecouponselected) {
+            this.isfreecouponselected = isfreecouponselected;
+        }
+
     }
 
 }
-
-

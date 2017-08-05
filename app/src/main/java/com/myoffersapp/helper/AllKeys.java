@@ -12,7 +12,7 @@ public class AllKeys {
 
 
 	public static final String WEBSITE = "http://discountapp.studyfield.com/Service.asmx/";
-	public static final String WEBSITE_BANNER = "http://safeconnexions.com/Service.asmx/";
+
 
 	public static final String URL_REFERRAL_URL = "http://discountapp.studyfield.com/ReferalCode.aspx?Referal=";
 
@@ -55,8 +55,7 @@ public class AllKeys {
 	public static final String TAG_USER_VERIFIED_EMAIL="verified_email";
 
 
-
-
+	public static final  String ACTIVITYNAME="ActivityName";
 
 
 }

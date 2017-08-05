@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="2dp"
 
+    android:background="@color/white"
     android:clickable="true"
     android:orientation="horizontal">
 
@@ -20,8 +21,8 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:elevation="10dp"
             android:layout_margin="10dp"
+            android:elevation="10dp"
 
             android:gravity="center"
             android:orientation="vertical"
@@ -31,8 +32,6 @@
                 android:id="@+id/tvreferUserName"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-
-
 
 
                 android:clickable="false"
@@ -51,7 +50,6 @@
                 android:layout_height="fill_parent"
 
 
-
                 android:clickable="false"
                 android:gravity="left"
 
@@ -59,18 +57,19 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/colorPrimary"
 
-                 />
+                />
+
             <com.myoffersapp.ui.AppTextView
                 android:id="@+id/tvreferDate"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
 
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-
                 android:clickable="false"
-                android:gravity="left"
 
+                android:gravity="left"
                 android:text="Category"
+
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
 
                 android:textColor="@color/colorPrimary"
 
@@ -78,6 +77,14 @@
 
 
         </LinearLayout>
+
+        <Button
+            android:id="@+id/btnClaimFreeCoupon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_clicked_background"
+            android:text="Claim Free Coupon"
+            android:textColor="@color/white" />
 
 
     </LinearLayout>

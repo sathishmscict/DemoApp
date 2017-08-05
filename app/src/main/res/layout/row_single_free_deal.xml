@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:clickable="true"
+    android:orientation="horizontal">
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+
+
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/llDeal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+
+
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.9">
+
+                <ImageView
+                    android:id="@+id/ivOfferLogo"
+                    android:layout_width="fill_parent"
+                    android:layout_height="160dp"
+                    android:layout_margin="2dp"
+                    android:clickable="false"
+
+
+                    android:gravity="center"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/bg6"
+
+
+                    android:text="1"
+                    android:textColor="@color/white"
+                    android:textSize="24sp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+
+                android:layout_weight="0.4"
+                android:gravity="center"
+                android:orientation="vertical">
+
+
+                <com.myoffersapp.ui.AppTextView
+                    android:id="@+id/tvOfferTitle"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+
+
+                    android:clickable="false"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="8dp"
+                    android:text="Title"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="@color/colorPrimary"
+
+                    android:textStyle="bold" />
+
+                <RatingBar
+                    android:id="@+id/ratingBar"
+                    style="?android:attr/ratingBarStyleSmall"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+
+                    android:layout_gravity="center|left"
+                    android:numStars="5"
+
+
+                    android:paddingLeft="8dp" />
+
+                <com.myoffersapp.ui.AppTextView
+                    android:id="@+id/tvDistanceInkm"
+                    android:layout_width="fill_parent"
+
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:gravity="center|left"
+                    android:paddingLeft="8dp"
+
+
+                    android:paddingRight="8dp"
+                    android:text="0km"
+                    android:textColor="@color/colorPrimary" />
+
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|left"
+                    android:orientation="horizontal"
+
+                    android:paddingLeft="8dp">
+
+                    <com.myoffersapp.ui.AppTextView
+                        android:id="@+id/tvUnitPrice"
+                        android:layout_width="wrap_content"
+
+                        android:layout_height="wrap_content"
+
+
+                        android:layout_gravity="center"
+                        android:background="@drawable/icon_line"
+                        android:backgroundTint="#e41212"
+
+                        android:clickable="false"
+                        android:gravity="center"
+                        android:paddingLeft="8dp"
+                        android:text="10"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textColor="#e41212"
+
+                        android:textStyle="bold" />
+
+                    <com.myoffersapp.ui.AppTextView
+                        android:id="@+id/tvOfferDiscount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+
+                        android:clickable="false"
+                        android:gravity="center"
+                        android:paddingLeft="8dp"
+                        android:text="Price"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textColor="@color/colorPrimary"
+
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <com.myoffersapp.ui.AppTextView
+                    android:id="@+id/tvRemaingCount"
+                    android:layout_width="fill_parent"
+
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:gravity="center|left"
+                    android:paddingLeft="8dp"
+
+
+                    android:paddingRight="8dp"
+                    android:text="RemainingCount ;g dfg fg dfl gdfg df gdgdflg ddfklg fdgkdf gkdf kg dfg dfk gkdfgk dfkg dfk gkdf g dfkg kdf gkdf gkldf"
+                    android:textColor="@color/colorPrimaryText" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+
+            >
+
+
+            <Button
+                android:id="@+id/btnView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_clicked_background"
+                android:text="Show"
+                android:textColor="@color/white" />
+
+
+            <Button
+                android:id="@+id/btnTransfer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1dp"
+                android:layout_weight="1"
+
+                android:background="@drawable/button_clicked_background"
+                android:text="Transfer"
+                android:textColor="@color/white" />
+
+
+            <Button
+                android:id="@+id/btnUse"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1dp"
+
+                android:layout_weight="1"
+                android:background="@drawable/button_clicked_background"
+                android:text="Use"
+                android:textColor="@color/white" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</android.support.v7.widget.CardView>

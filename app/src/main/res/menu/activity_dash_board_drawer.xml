@@ -3,32 +3,38 @@
 
 
     <item
+
         android:id="@+id/nav_home"
-        android:icon="@drawable/ic_menu_camera"
+        android:icon="@drawable/icon_home"
         android:title="Home" />
     <item
         android:id="@+id/nav_profile"
-        android:icon="@drawable/ic_menu_gallery"
+        android:icon="@drawable/icon_profile"
         android:title="Profile" />
     <item
         android:id="@+id/nav_offer_history"
-        android:icon="@drawable/ic_menu_slideshow"
+        android:icon="@drawable/icon_offer_history"
         android:title="Offer History" />
 
     <item
         android:id="@+id/nav_referal_history"
-        android:icon="@drawable/ic_menu_slideshow"
+        android:icon="@drawable/icon_referal_list"
         android:title="Referral History" />
+
+    <item
+        android:id="@+id/nav_nearby"
+        android:icon="@drawable/icon_small_location"
+        android:title="Nearby" />
 
 
     <item
         android:id="@+id/nav_rateapp"
-        android:icon="@drawable/ic_menu_slideshow"
+        android:icon="@drawable/icon_rateapp"
         android:title="RateApp" />
 
     <item
         android:id="@+id/nav_logout"
-        android:icon="@drawable/ic_menu_manage"
+        android:icon="@drawable/icon_logout"
         android:title="Logout" />
 
 

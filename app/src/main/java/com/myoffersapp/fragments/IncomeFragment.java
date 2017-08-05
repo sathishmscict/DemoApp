@@ -15,8 +15,11 @@ import android.widget.Toast;
 
 import com.myoffersapp.R;
 import com.myoffersapp.SessionManager;
+import com.myoffersapp.adapter.EarnedOffersAdapterRecyclerView;
 import com.myoffersapp.adapter.ReferralListAdapterRecyclerView;
+import com.myoffersapp.helper.AllKeys;
 import com.myoffersapp.helper.CommonMethods;
+import com.myoffersapp.model.FreeOffersData;
 import com.myoffersapp.model.ReferralData;
 import com.myoffersapp.retrofit.ApiClient;
 import com.myoffersapp.retrofit.ApiInterface;
@@ -80,23 +83,24 @@ public class IncomeFragment extends Fragment {
         LinearLayoutManager lManager = new LinearLayoutManager(getActivity());
         rvReferrals.setLayoutManager(lManager);
 
-        getReferralDetaislFromServer();
+        getIncomeDetaislFromServer();
+
 
 
         return rootView;
 
     }
 
-    private void getReferralDetaislFromServer() {
+    private void getIncomeDetaislFromServer() {
         CommonMethods.showDialog(spotsDialog);
 
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Log.d(TAG , "Params  : type=referal&userid= "+userDetails.get(SessionManager.KEY_USER_ID));
+        Log.d(TAG , "Params  "+ AllKeys.WEBSITE +"ViewFreeOffersData?type=viewfreeoffers&userid= "+userDetails.get(SessionManager.KEY_USER_ID));
         /*apiService.getAllReferralsDetailsFromServer("referal", userDetails.get(SessionManager.KEY_USER_ID)).enqueue(new Callback<ReferralData>() {*/
-        apiService.getAllReferralsDetailsFromServer("referal", "3").enqueue(new Callback<ReferralData>() {
+        apiService.getAllFreeOffersData("viewfreeoffers", userDetails.get(SessionManager.KEY_USER_ID)).enqueue(new Callback<FreeOffersData>() {
 
             @Override
-            public void onResponse(Call<ReferralData> call, retrofit2.Response<ReferralData> response) {
+            public void onResponse(Call<FreeOffersData> call, retrofit2.Response<FreeOffersData> response) {
 
                 Log.d(TAG, "Response Code : " + response.code());
                 Log.d(TAG, "API Called Success" + response.raw().body().toString());
@@ -116,8 +120,9 @@ public class IncomeFragment extends Fragment {
 
                         if (record_status == true) {
 
-                            List<ReferralData.Datum> data = response.body().getData();
-                            ReferralListAdapterRecyclerView adapter = new ReferralListAdapterRecyclerView(context, data);
+                            List<
+                                    FreeOffersData.Datum> data = response.body().getData();
+                            EarnedOffersAdapterRecyclerView adapter = new EarnedOffersAdapterRecyclerView(getActivity(), data);
                             rvReferrals.setAdapter(adapter);
                             CommonMethods.hideDialog(spotsDialog);
 
@@ -129,7 +134,7 @@ public class IncomeFragment extends Fragment {
                         {
                             rvReferrals.setVisibility(View.GONE);
                             tvNodata.setVisibility(View.VISIBLE);
-                            tvNodata.setText(getString(R.string.str_noreferal_found));
+                            tvNodata.setText(getString(R.string.str_no_earned_offers_found));
 
 
 
@@ -142,10 +147,7 @@ public class IncomeFragment extends Fragment {
 
                     Toast.makeText(context, "Something is wrong,try again  Error code :"+response.code(), Toast.LENGTH_SHORT).show();
                 }
-                //Comment this code , API has been changed by zeal when data not found then error status as false
-                tvNodata.setVisibility(View.VISIBLE);
-                tvNodata.setText(getString(R.string.str_noreferal_found));
-                rvReferrals.setVisibility(View.GONE);
+
 
                 CommonMethods.hideDialog(spotsDialog);
 
@@ -153,7 +155,7 @@ public class IncomeFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<ReferralData> call, Throwable t) {
+            public void onFailure(Call<FreeOffersData> call, Throwable t) {
 
                 Toast.makeText(context, "Unable to submit post to API.", Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "Unable to submit post to API." + t.getMessage());

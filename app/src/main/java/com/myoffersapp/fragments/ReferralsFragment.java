@@ -97,6 +97,7 @@ public class ReferralsFragment extends Fragment {
 
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
         Log.d(TAG , "Params  : type=referal&userid= "+userDetails.get(SessionManager.KEY_USER_ID));
+        //apiService.getAllReferralsDetailsFromServer("referal", userDetails.get(SessionManager.KEY_USER_ID)).enqueue(new Callback<ReferralData>() {
         apiService.getAllReferralsDetailsFromServer("referal", userDetails.get(SessionManager.KEY_USER_ID)).enqueue(new Callback<ReferralData>() {
 
             @Override
@@ -106,7 +107,8 @@ public class ReferralsFragment extends Fragment {
                 Log.d(TAG, "API Called Success" + response.raw().body().toString());
 
 
-                if (response.code() == 200) {
+                if (response.code() == 200)
+                {
 
                     String str_error = response.body().getMESSAGE();
                     String str_error_original = response.body().getORIGINALERROR();
@@ -121,7 +123,7 @@ public class ReferralsFragment extends Fragment {
                         if (record_status == true) {
 
                             List<ReferralData.Datum> data = response.body().getData();
-                            ReferralListAdapterRecyclerView adapter = new ReferralListAdapterRecyclerView(context, data);
+                            ReferralListAdapterRecyclerView adapter = new ReferralListAdapterRecyclerView(getActivity(), data);
                             rvReferrals.setAdapter(adapter);
                             CommonMethods.hideDialog(spotsDialog);
 

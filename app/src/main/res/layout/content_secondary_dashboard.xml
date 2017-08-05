@@ -31,6 +31,7 @@
         android:layout_height="0dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+
         android:layout_marginTop="0dp"
         android:gravity="center"
         android:text="@string/str_clain_firsrt_offer_descr"
@@ -137,9 +138,10 @@
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_marginLeft="8dp"
+        android:gravity="center"
         android:layout_marginRight="8dp"
         android:layout_marginTop="0dp"
-        android:gravity="center"
+
         android:text="@string/str_first_bill_offer_descr"
         android:textAppearance="?android:attr/textAppearanceLargePopupMenu"
         android:textColor="@color/colorPrimary"
@@ -148,7 +150,7 @@
         app:layout_constraintRight_toLeftOf="@+id/guideline10"
         app:layout_constraintTop_toTopOf="@+id/guideline26" />
 
-    <Button
+    <com.myoffersapp.ui.AppButton
         android:id="@+id/btnOffers"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -194,22 +196,22 @@
         android:id="@+id/textView8"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginLeft="24dp"
         android:layout_marginTop="0dp"
-        android:text="@string/str_referral_offer_descr"
+        android:gravity="center"
+        android:text="@string/str_referral_offer_descr2"
         android:textAppearance="?android:attr/textAppearanceLargePopupMenu"
         android:textColor="@color/colorPrimary"
         app:layout_constraintLeft_toLeftOf="@+id/guideline18"
         app:layout_constraintTop_toTopOf="@+id/guideline27"
         app:layout_constraintRight_toLeftOf="@+id/guideline10"
-        android:layout_marginRight="8dp"
-        app:layout_constraintHorizontal_bias="0.503" />
+        android:layout_marginRight="24dp" />
 
     <com.myoffersapp.ui.AppButton
         android:id="@+id/btnRefer"
         android:layout_width="0dp"
         android:layout_height="36dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="0dp"
         android:layout_marginLeft="0dp"
         android:layout_marginRight="0dp"
         android:layout_marginTop="8dp"
@@ -221,7 +223,7 @@
         app:layout_constraintLeft_toLeftOf="@+id/guideline18"
         app:layout_constraintRight_toLeftOf="@+id/guideline10"
         app:layout_constraintTop_toBottomOf="@+id/textView8"
-        app:layout_constraintVertical_bias="0.4" />
+        app:layout_constraintVertical_bias="0.384" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline28"

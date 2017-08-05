@@ -1,7 +1,17 @@
 package com.myoffersapp.adapter;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.RectF;
+import android.support.annotation.FloatRange;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +27,12 @@ import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
+
+import berlin.volders.badger.BadgeDrawable;
+import berlin.volders.badger.BadgeShape;
+import berlin.volders.badger.Badger;
+import berlin.volders.badger.CountBadge;
 
 /**
  * Created by Satish Gadde on 30-04-2016.
@@ -25,12 +41,14 @@ public class CategoryAdapterRecyclerView extends RecyclerView.Adapter<CategoryAd
 
     private final Context _context;
     private final SessionManager sessionManager;
+
     private HashMap<String, String> userDetails = new HashMap<String, String>();
     private List<CategoryData.Datum> list_categoty;
     private ImageLoader mImageLoader;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private final ImageView ivCategory;
+        private final TextView tvCount;
         public TextView tvcategory;
 
         public MyViewHolder(View view) {
@@ -40,6 +58,9 @@ public class CategoryAdapterRecyclerView extends RecyclerView.Adapter<CategoryAd
             tvcategory = (TextView) view.findViewById(R.id.tvcategory);
 
             ivCategory = (ImageView) view.findViewById(R.id.ivCategory);
+
+            tvCount = (TextView)view.findViewById(R.id.tvCount);
+
 
 
         }
@@ -53,7 +74,6 @@ public class CategoryAdapterRecyclerView extends RecyclerView.Adapter<CategoryAd
 
         sessionManager = new SessionManager(context);
         userDetails = sessionManager.getSessionDetails();
-
 
     }
 
@@ -84,6 +104,11 @@ public class CategoryAdapterRecyclerView extends RecyclerView.Adapter<CategoryAd
                     .into(holder.ivCategory);
 
 
+
+
+            holder.tvCount.setText(list_categoty.get(position).getOffercount());
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -95,4 +120,8 @@ public class CategoryAdapterRecyclerView extends RecyclerView.Adapter<CategoryAd
     public int getItemCount() {
         return list_categoty.size();
     }
+
+
+
+
 }
