@@ -156,13 +156,23 @@ public class CommonMethods {
     }
 
     public static void displayFailerError(Context context , String TAG , Throwable t) {
-        Toast.makeText(context, "Unable to submit post to API.", Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(context, "Unable to submit post to API.", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "Unable to submit post to API. Message  = " + t.getMessage());
         Log.d(TAG, "Unable to submit post to API. LocalizedMessage = " + t.getLocalizedMessage());
         Log.d(TAG, "Unable to submit post to API. Cause = " + t.getCause());
         Log.d(TAG, "Unable to submit post to API. StackTrace = " + t.getStackTrace());
 
         Toast.makeText(context, "Sorry , try again...", Toast.LENGTH_SHORT).show();
+    }
+
+
+    //Get Current date in dd-MM-yyyy format
+    public static final  String getDateCurrentDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy",
+                Locale.getDefault());
+
+        Date date = new Date();
+        return dateFormat.format(date);
     }
 
     public static void showServerError(Context  context,Integer errorCode) {

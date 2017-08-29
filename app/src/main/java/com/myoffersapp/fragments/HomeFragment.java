@@ -12,22 +12,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.ServerError;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
-import com.myoffersapp.MyApplication;
 import com.myoffersapp.R;
 import com.myoffersapp.SessionManager;
 import com.myoffersapp.VendorsActivity;
@@ -39,10 +31,6 @@ import com.myoffersapp.model.SlidersData;
 import com.myoffersapp.retrofit.ApiClient;
 import com.myoffersapp.retrofit.ApiInterface;
 
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,7 +44,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 
-public class HomeFragment extends Fragment implements  BaseSliderView.OnSliderClickListener {
+public class HomeFragment extends Fragment implements BaseSliderView.OnSliderClickListener {
 
 
     private Context context = getActivity();
@@ -80,8 +68,7 @@ public class HomeFragment extends Fragment implements  BaseSliderView.OnSliderCl
     private ArrayList<Integer> list_SliderId = new ArrayList<Integer>();
     private ArrayList<String> list_SliderImages = new ArrayList<String>();
 
-    private ArrayList<Integer>     list_SliderCategoryId = new ArrayList<Integer>();
-
+    private ArrayList<Integer> list_SliderCategoryId = new ArrayList<Integer>();
 
 
     private ArrayList<String> list_SliderCategoryURL = new ArrayList<String>();
@@ -145,9 +132,9 @@ public class HomeFragment extends Fragment implements  BaseSliderView.OnSliderCl
         }
 
 
-        getSlidersByTypeDetailsFromServer();
-
         getCategoryDetailsFromServer();
+        //getSlidersByTypeDetailsFromServer();
+
 
         //Handle Recyclerview click
         rvCategory.addOnItemTouchListener(new CommonMethods.RecyclerTouchListener(context, rvCategory, new CommonMethods.ClickListener() {
@@ -156,9 +143,9 @@ public class HomeFragment extends Fragment implements  BaseSliderView.OnSliderCl
 
                 try {
 
-                    Intent intent = new Intent(getActivity(),
-                            VendorsActivity.class);
-                    intent.putExtra("VENDORTYPE" , "vendor");
+                    Intent intent = new Intent(getActivity(), VendorsActivity.class);
+                   // Intent intent = new Intent(getActivity(), NewSingleDealActivity.class);
+                    intent.putExtra("VENDORTYPE", "vendor");
                     sessionManager.setCategoryDetails(list_Vendordata.get(position).getCategoryid(), list_Vendordata.get(position).getCategoryname());
 
 
@@ -189,7 +176,7 @@ public class HomeFragment extends Fragment implements  BaseSliderView.OnSliderCl
         CommonMethods.showDialog(spotsDialog);
 
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Log.d(TAG ,"URL : "+ AllKeys.WEBSITE+"ViewCategoryData?type=category");
+        Log.d(TAG, "URL : " + AllKeys.WEBSITE + "ViewCategoryData?type=category");
         apiService.getAllCategoryDetailsFromServer("category").enqueue(new Callback<CategoryData>() {
             @Override
             public void onResponse(Call<CategoryData> call, retrofit2.Response<CategoryData> response) {
@@ -206,8 +193,8 @@ public class HomeFragment extends Fragment implements  BaseSliderView.OnSliderCl
                     boolean record_status = response.body().getRECORDS();
 
 
-
-                    if (error_status == false) {
+                    if (error_status == false)
+                    {
 
                         if (record_status == true) {
 
@@ -215,7 +202,8 @@ public class HomeFragment extends Fragment implements  BaseSliderView.OnSliderCl
                             list_Vendordata = response.body().getData();
                             CategoryAdapterRecyclerView adapter = new CategoryAdapterRecyclerView(getActivity(), list_Vendordata);
                             rvCategory.setAdapter(adapter);
-                            CommonMethods.hideDialog(spotsDialog);
+                            //CommonMethods.hideDialog(spotsDialog);
+                            getSlidersByTypeDetailsFromServer();
                         }
                     }
 
@@ -240,32 +228,29 @@ public class HomeFragment extends Fragment implements  BaseSliderView.OnSliderCl
                 Log.d(TAG, "Unable to submit post to API. StackTrace = " + t.getStackTrace());
 
 
+                if (t.getMessage().equals("timeout")) {
+                    getCategoryDetailsFromServer();
+                } else {
 
-
-                if(t.getMessage().equals("timeout"))
-                {
-                   // getCategoryDetailsFromServer();
+                    CommonMethods.hideDialog(spotsDialog);
                 }
 
-                CommonMethods.hideDialog(spotsDialog);
+
             }
         });
 
 
     }
 
-    private void getSlidersByTypeDetailsFromServer()
-    {
+
+
+    private void getSlidersByTypeDetailsFromServer() {
         CommonMethods.showDialog(spotsDialog);
 
 
-
-
-
-
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Log.d(TAG ,"URL : "+AllKeys.WEBSITE + "ViewBanner?type=banner&bannertype=category&categoryid=0&vendorid=0");
-        apiService.getSlidersDataFromServer("banner","category","0","0").enqueue(new Callback<SlidersData>() {
+        Log.d(TAG, "URL : " + AllKeys.WEBSITE + "ViewBanner?type=banner&bannertype=category&categoryid=0&vendorid=0");
+        apiService.getSlidersDataFromServer("banner", "category", "0", "0").enqueue(new Callback<SlidersData>() {
             @Override
             public void onResponse(Call<SlidersData> call, retrofit2.Response<SlidersData> response) {
 
@@ -279,7 +264,6 @@ public class HomeFragment extends Fragment implements  BaseSliderView.OnSliderCl
                     String str_error_original = response.body().getORIGINALERROR();
                     boolean error_status = response.body().getERRORSTATUS();
                     boolean record_status = response.body().getRECORDS();
-
 
 
                     if (error_status == false) {
@@ -309,11 +293,8 @@ public class HomeFragment extends Fragment implements  BaseSliderView.OnSliderCl
                                 list_SliderCategoryId.add(Integer.parseInt(arr.get(i).getCategoryid()));
 
 
-
                             }
                             FillDashBoardSliders();
-
-
 
 
                         }
@@ -340,10 +321,7 @@ public class HomeFragment extends Fragment implements  BaseSliderView.OnSliderCl
                 Log.d(TAG, "Unable to submit post to API. StackTrace = " + t.getStackTrace());
 
 
-
-
-                if(t.getMessage().equals("timeout"))
-                {
+                if (t.getMessage().equals("timeout")) {
                     // getCategoryDetailsFromServer();
                 }
 
@@ -428,7 +406,6 @@ public class HomeFragment extends Fragment implements  BaseSliderView.OnSliderCl
     private void FillDashBoardSliders() {
 
 
-
         for (String name : url_maps.keySet()) {
             TextSliderView textSliderView = new TextSliderView(getActivity());
             // initialize a SliderLayout
@@ -494,7 +471,7 @@ public class HomeFragment extends Fragment implements  BaseSliderView.OnSliderCl
 
 
 //        mDemoSlider.addOnPageChangeListener(ge);
-       // hideDialog();
+        // hideDialog();
 
     }
 
@@ -545,15 +522,16 @@ public class HomeFragment extends Fragment implements  BaseSliderView.OnSliderCl
 
            /* String catid = list_SliderCategoryURL.get(id);
             catid = catid.substring(catid.lastIndexOf("=") + 1, catid.length());
-            Integer.parseInt(catid)*/;
+            Integer.parseInt(catid)*/
+            ;
 
             try {
 
                 Intent intent = new Intent(getActivity(),
                         VendorsActivity.class);
-                intent.putExtra("VENDORTYPE" , "vendor");
+                intent.putExtra("VENDORTYPE", "vendor");
 
-                sessionManager.setCategoryDetails(String.valueOf(list_SliderCategoryId.get(id)),"");
+                sessionManager.setCategoryDetails(String.valueOf(list_SliderCategoryId.get(id)), "");
 
 
                 intent.putExtra("ActivityName", TAG);

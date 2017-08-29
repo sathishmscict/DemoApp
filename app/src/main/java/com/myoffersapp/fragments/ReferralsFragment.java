@@ -96,7 +96,8 @@ public class ReferralsFragment extends Fragment {
         CommonMethods.showDialog(spotsDialog);
 
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Log.d(TAG , "Params  : type=referal&userid= "+userDetails.get(SessionManager.KEY_USER_ID));
+
+        Log.d(TAG , "URL ViewReferalData  "+ AllKeys.WEBSITE +"ViewReferalData?type=referal&userid="+userDetails.get(SessionManager.KEY_USER_ID));
         //apiService.getAllReferralsDetailsFromServer("referal", userDetails.get(SessionManager.KEY_USER_ID)).enqueue(new Callback<ReferralData>() {
         apiService.getAllReferralsDetailsFromServer("referal", userDetails.get(SessionManager.KEY_USER_ID)).enqueue(new Callback<ReferralData>() {
 
@@ -146,7 +147,7 @@ public class ReferralsFragment extends Fragment {
 
                 } else {
 
-                    Toast.makeText(context, "Something is wrong,try again  Error code :"+response.code(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Something is wrong,try again  Error code :"+response.code(), Toast.LENGTH_SHORT).show();
                 }
 
                 CommonMethods.hideDialog(spotsDialog);
@@ -157,7 +158,7 @@ public class ReferralsFragment extends Fragment {
             @Override
             public void onFailure(Call<ReferralData> call, Throwable t) {
 
-                Toast.makeText(context, "Unable to submit post to API.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Unable to submit post to API.", Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "Unable to submit post to API." + t.getMessage());
 
                 CommonMethods.hideDialog(spotsDialog);

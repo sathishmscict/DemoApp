@@ -3,10 +3,7 @@ package com.myoffersapp;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.DashPathEffect;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -16,7 +13,7 @@ import android.widget.Toast;
 
 import com.myoffersapp.helper.AllKeys;
 import com.myoffersapp.helper.CommonMethods;
-import com.myoffersapp.model.FCMReponse;
+import com.myoffersapp.model.CommonReponse;
 import com.myoffersapp.retrofit.ApiClient;
 import com.myoffersapp.retrofit.ApiInterface;
 import com.r0adkll.slidr.Slidr;
@@ -72,7 +69,6 @@ public class SecondaryDashboard extends AppCompatActivity {
         spotsDialog.setCancelable(false);
 
 
-
         setTitle("Welcome " + userDetails.get(SessionManager.KEY_USER_NAME));
 
 
@@ -88,7 +84,7 @@ public class SecondaryDashboard extends AppCompatActivity {
 
                 sessionManager.setOfferTypeId(CommonMethods.OFFER_TYPE_REFERAL);
                 Intent intent = new Intent(context, DisplayDealsAcivity.class);
-                intent.putExtra(AllKeys.ACTIVITYNAME , TAG);
+                intent.putExtra(AllKeys.ACTIVITYNAME, TAG);
                 startActivity(intent);
                 finish();
 
@@ -113,7 +109,7 @@ public class SecondaryDashboard extends AppCompatActivity {
 
 
                 Intent intent = new Intent(context, ReferAndEarnTabActivity.class);
-                intent.putExtra(AllKeys.ACTIVITYNAME , TAG);
+                intent.putExtra(AllKeys.ACTIVITYNAME, TAG);
                 startActivity(intent);
                 finish();
 
@@ -126,7 +122,12 @@ public class SecondaryDashboard extends AppCompatActivity {
             startActivity(intent);
             finish();
 
+        } else if (userDetails.get(SessionManager.KEY_USER_MOBILE).length() != 10 && !userDetails.get(SessionManager.KEY_USER_ID).equals("0")) {
+            Intent intent = new Intent(context, AskMobileNoActivity.class);
+            startActivity(intent);
+            finish();
         } else if (userDetails.get(SessionManager.KEY_USER_ID).equals("0")) {
+
 
             Intent intent = new Intent(context, WelcomeActivity.class);
             startActivity(intent);
@@ -140,9 +141,7 @@ public class SecondaryDashboard extends AppCompatActivity {
                 startActivity(intent);
                 finish();
 
-            }
-            else
-            {
+            } else {
                 UpdateFcmTokenDetailsToServer();
 
             }
@@ -151,11 +150,11 @@ public class SecondaryDashboard extends AppCompatActivity {
         }
 
 
-
     }
     //omCreate completed
 
-    private void UpdateFcmTokenDetailsToServer() {
+    private void UpdateFcmTokenDetailsToServer()
+    {
         CommonMethods.showDialog(spotsDialog);
 
         String fcm_tokenid = "";
@@ -169,13 +168,12 @@ public class SecondaryDashboard extends AppCompatActivity {
         }
 
 
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
 
-        ApiInterface apiService= ApiClient.getClient().create(ApiInterface.class);
-
-        Log.d(TAG , "URL UpdateFCM Token : "+ AllKeys.WEBSITE +"type=fcmtoken?userid="+ userDetails.get(SessionManager.KEY_USER_ID) +"&token="+ fcm_tokenid +"&devicetype=android");
-        apiService.sendFCMTokenToServer("fcmtoken",userDetails.get(SessionManager.KEY_USER_ID),fcm_tokenid,"android").enqueue(new Callback<FCMReponse>() {
+        Log.d(TAG, "URL UpdateFCM Token : " + AllKeys.WEBSITE + "type=fcmtoken?userid=" + userDetails.get(SessionManager.KEY_USER_ID) + "&token=" + fcm_tokenid + "&devicetype=android");
+        apiService.sendFCMTokenToServer("fcmtoken", userDetails.get(SessionManager.KEY_USER_ID), fcm_tokenid, "android").enqueue(new Callback<CommonReponse>() {
             @Override
-            public void onResponse(Call<FCMReponse> call, Response<FCMReponse> response) {
+            public void onResponse(Call<CommonReponse> call, Response<CommonReponse> response) {
 
                 if (response.code() == 200) {
 
@@ -185,26 +183,23 @@ public class SecondaryDashboard extends AppCompatActivity {
                     boolean record_status = response.body().getRECORDS();
                     String isFirstBillPlaced = response.body().getISFIRSTBILL();
                     CommonMethods.hideDialog(spotsDialog);
-                    if(isFirstBillPlaced.equals("1"))
-                    {
-                        Intent intent = new Intent(context , DashBoardActivity.class);
+                    if (isFirstBillPlaced.equals("1")) {
+                        Intent intent = new Intent(context, DashBoardActivity.class);
                         startActivity(intent);
                         finish();
 
                     }
 
-                }
-                else
-                {
-                    Toast.makeText(SecondaryDashboard.this, getString(R.string.server_error)+response.code(), Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(SecondaryDashboard.this, getString(R.string.server_error) + response.code(), Toast.LENGTH_LONG).show();
                 }
 
             }
 
             @Override
-            public void onFailure(Call<FCMReponse> call, Throwable t) {
+            public void onFailure(Call<CommonReponse> call, Throwable t) {
 
-                Toast.makeText(SecondaryDashboard.this, getString(R.string.api_error)+t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(SecondaryDashboard.this, getString(R.string.api_error) + t.getMessage(), Toast.LENGTH_LONG).show();
 
 
                 Log.d(TAG, "Unable to submit post to API. Message  = " + t.getMessage());
@@ -214,8 +209,7 @@ public class SecondaryDashboard extends AppCompatActivity {
 
                 Toast.makeText(context, "Sorry , try again...", Toast.LENGTH_SHORT).show();
 
-                if(t.getMessage().equals("timeout"))
-                {
+                if (t.getMessage().equals("timeout")) {
                     // sendReviewDetailsToServer();
                 }
 
@@ -223,8 +217,6 @@ public class SecondaryDashboard extends AppCompatActivity {
 
             }
         });
-
-
 
 
     }

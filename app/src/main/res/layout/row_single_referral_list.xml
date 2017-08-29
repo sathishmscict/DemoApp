@@ -78,7 +78,7 @@
 
         </LinearLayout>
 
-        <Button
+        <com.myoffersapp.ui.AppButton
             android:id="@+id/btnClaimFreeCoupon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

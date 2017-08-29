@@ -1,11 +1,9 @@
 package com.myoffersapp;
 
-import android.*;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -28,6 +26,7 @@ import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
+import com.myoffersapp.app.MyApplication;
 import com.myoffersapp.helper.AllKeys;
 import com.myoffersapp.helper.NetConnectivity;
 
@@ -142,39 +141,23 @@ public class VerificationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String currentcode = edt1.getText().toString() + edt2.getText().toString() + edt3.getText().toString() + edt4.getText().toString();
-
-                // CheckVerification(currentcode);
-
-                if (userDetails.get(SessionManager.KEY_CODE)
-                        .equals(currentcode)) {
-
-                    // serviceP.asmx/SetStudentVerificationStatusUpdate?type=varemp&empid=string&mobileno=string&status=string&clientid=string&branch=string
-
-
-                    try {
-                        runOnUiThread(new TimerTask() {
+                Dexter.withActivity(VerificationActivity.this)
+                        .withPermission(android.Manifest.permission.READ_SMS)
+                        .withListener(new PermissionListener() {
                             @Override
-                            public void run() {
-                                // txtcode.setText(userDetails.get(SessionManager.KEY_RECEIVECODE));
+                            public void onPermissionGranted(PermissionGrantedResponse response) {
+                                sendSMSToUser();
+
+
                             }
-                        });
-                        timer.cancel();
-                        timer.purge();
 
-                        timer = null;
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                            @Override
+                            public void onPermissionDenied(PermissionDeniedResponse response) {/* ... */}
 
-
-                    VerificationStatusUpdate();
-
-
-                } else {
-                    Toast.makeText(context, "Invalid code", Toast.LENGTH_SHORT)
-                            .show();
-                }
+                            @Override
+                            public void onPermissionRationaleShouldBeShown(PermissionRequest
+                                                                                   permission, PermissionToken token) {/* ... */}
+                        }).check();
             }
         });
 

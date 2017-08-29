@@ -1,6 +1,5 @@
 package com.myoffersapp;
 
-import android.*;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -14,8 +13,6 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -35,7 +32,6 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.codemybrainsout.ratingdialog.RatingDialog;
 import com.karumi.dexter.Dexter;
@@ -49,15 +45,11 @@ import com.myoffersapp.fragments.HomeFragment;
 import com.myoffersapp.fragments.OfferHistoryFragment;
 import com.myoffersapp.helper.AllKeys;
 import com.myoffersapp.helper.CommonMethods;
-import com.myoffersapp.helper.GPSTracker;
-import com.myoffersapp.model.FCMReponse;
+import com.myoffersapp.model.CommonReponse;
 import com.myoffersapp.retrofit.ApiClient;
 import com.myoffersapp.retrofit.ApiInterface;
 import com.myoffersapp.ui.CustomTypefaceSpan;
-import com.r0adkll.slidr.Slidr;
-import com.r0adkll.slidr.model.SlidrConfig;
-import com.r0adkll.slidr.model.SlidrListener;
-import com.r0adkll.slidr.model.SlidrPosition;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 
@@ -285,9 +277,9 @@ public class DashBoardActivity extends AppCompatActivity
         ApiInterface apiService= ApiClient.getClient().create(ApiInterface.class);
 
         Log.d(TAG , "URL UpdateFCM Token : "+ AllKeys.WEBSITE +"type=fcmtoken?userid="+ userDetails.get(SessionManager.KEY_USER_ID) +"&token="+ fcm_tokenid +"&devicetype=android");
-        apiService.sendFCMTokenToServer("fcmtoken",userDetails.get(SessionManager.KEY_USER_ID),fcm_tokenid,"android").enqueue(new Callback<FCMReponse>() {
+        apiService.sendFCMTokenToServer("fcmtoken",userDetails.get(SessionManager.KEY_USER_ID),fcm_tokenid,"android").enqueue(new Callback<CommonReponse>() {
             @Override
-            public void onResponse(Call<FCMReponse> call, Response<FCMReponse> response) {
+            public void onResponse(Call<CommonReponse> call, Response<CommonReponse> response) {
 
                 if(response.code() != 200)
                 {
@@ -298,7 +290,7 @@ public class DashBoardActivity extends AppCompatActivity
             }
 
             @Override
-            public void onFailure(Call<FCMReponse> call, Throwable t) {
+            public void onFailure(Call<CommonReponse> call, Throwable t) {
 
                 CommonMethods.displayFailerError(context,TAG,t);
                 CommonMethods.hideDialog(spotsDialog);
@@ -339,6 +331,25 @@ public class DashBoardActivity extends AppCompatActivity
 
                 imgProfilePic.setImageBitmap(myBitmapAgain);
             }
+            else
+            {
+                try {
+                    Bitmap image = CommonMethods.getBitmapFromURL(userDetails.get(SessionManager.KEY_USER_AVATAR_URL));
+                    String enc = CommonMethods.getStringImage(image);
+                    sessionManager.setEncodedImage(enc);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Picasso.with(context)
+                            .load(userDetails.get(SessionManager.KEY_USER_AVATAR_URL))
+                    /*.placeholder(R.drawable.app_logo)
+                    .error(R.drawable.app_logo)*/
+                            .into(imgProfilePic);
+
+
+
+                }
+
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -348,7 +359,8 @@ public class DashBoardActivity extends AppCompatActivity
         CommonMethods.hideDialog(spotsDialog);
     }
 
-    public void setupFragment(Fragment fragment, String title) {
+    public void setupFragment(Fragment fragment, String title)
+    {
         setTitle(title);
 
         if (fragment != null) {
@@ -404,16 +416,33 @@ public class DashBoardActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.menu_notification) {
+
+
+            Intent intent = new Intent(context , NotificationActivity.class);
+            intent.putExtra(AllKeys.ACTIVITYNAME ,TAG);
+            startActivity(intent);
+            finish();
+
+
         }
+        else if(id == R.id.menu_bookmark)
+        {
+
+            Intent intent = new Intent(context , BookmarkActivity.class);
+            intent.putExtra(AllKeys.ACTIVITYNAME ,TAG);
+            startActivity(intent);
+            finish();
+        }
+
 
         return super.onOptionsItemSelected(item);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(MenuItem item)
+    {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
@@ -429,6 +458,7 @@ public class DashBoardActivity extends AppCompatActivity
         else if (id == R.id.nav_referal_history) {
 
             Intent intent = new Intent(context , ReferAndEarnTabActivity.class);
+
            // Intent intent = new Intent(context , AskMobileNoActivity.class);
             intent.putExtra(AllKeys.ACTIVITYNAME , TAG);
             startActivity(intent);

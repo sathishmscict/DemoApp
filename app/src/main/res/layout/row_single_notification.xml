@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+
+    android:clickable="true"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+
+
+        android:orientation="horizontal"
+        >
+
+
+        <!-- ListRow Left sied Thumbnail image -->
+
+        <LinearLayout
+            android:id="@+id/thumbnail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginRight="5dip"
+
+            android:padding="3dip">
+
+            <ImageView
+                android:id="@+id/ivLogo"
+                android:layout_width="70dip"
+                android:layout_height="70dip"
+                android:src="@mipmap/ic_launcher" />
+        </LinearLayout>
+
+        <!-- NAme Of Schol -->
+
+        <com.myoffersapp.ui.AppTextView
+            android:id="@+id/txtheading"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/thumbnail"
+            android:layout_toRightOf="@+id/thumbnail"
+            android:text="Notification"
+            android:textColor="@color/colorPrimaryText"
+
+            android:textSize="15dip"
+            android:textStyle="bold"
+            android:typeface="sans" />
+
+        <!-- Address Of School -->
+
+        <com.myoffersapp.ui.AppTextView
+            android:id="@+id/txtnote"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtheading"
+            android:layout_marginTop="1dip"
+            android:layout_toRightOf="@+id/thumbnail"
+            android:text="Notification From Website"
+
+            android:textColor="@color/colorSecondaryText" />
+
+        <!-- Rightend schoolID -->
+
+
+        <!-- Rightend Arrow -->
+
+
+        <com.myoffersapp.ui.AppTextView
+            android:layout_marginRight="4dp"
+            android:id="@+id/txtdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtnote"
+            android:text="01-01-2000"
+android:layout_marginBottom="8dp"
+            android:textColor="@color/colorPrimaryText"
+            android:layout_alignParentBottom="true"
+
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

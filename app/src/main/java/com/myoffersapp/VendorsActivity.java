@@ -105,25 +105,6 @@ public class VendorsActivity extends AppCompatActivity {
     List<Address> addresses;
 
 
-
-    /*   @Override
-       public void onMyLocationChange(Location location)
-       {
-
-
-
-           Location target = new Location("target");
-           //new LatLng[]{POINTA, POINTB, POINTC, POINTD}
-           for(LatLng point : locations) {
-               target.setLatitude(point.latitude);
-               target.setLongitude(point.longitude);
-               if(location.distanceTo(target) < 10*1000) {
-                   // bingo!
-               }
-           }
-
-       }
-   */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -224,7 +205,7 @@ public class VendorsActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        getSlidersByTypeDetailsFromServer();
+      // getSlidersByTypeDetailsFromServer();
         getVendorDetailsFromServer(vendorType);
 
 
@@ -494,7 +475,8 @@ public class VendorsActivity extends AppCompatActivity {
 //onCreate completed
 
 
-    private void AlertForLocationServices() {
+    private void AlertForLocationServices()
+    {
 
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -641,9 +623,9 @@ public class VendorsActivity extends AppCompatActivity {
 
                                                         target.setLatitude(Double.parseDouble(list_vendorDataTemp.get(i).getLatitude()));
                                                         target.setLongitude(Double.parseDouble(list_vendorDataTemp.get(i).getLongitude()));
-                                                        Log.d(TAG, "Name  : " + list_vendorDataTemp.get(i).getName() + " : " + list_vendorDataTemp.get(i).getAddress() + " : Location in Distance : " + myLocation.distanceTo(target));
+                                                        Log.d(TAG, i+" Name  : " + list_vendorDataTemp.get(i).getName() + " : " + list_vendorDataTemp.get(i).getAddress() + " : Location in Distance : " + myLocation.distanceTo(target));
 
-                                                        Log.d(TAG,"Current Distance  : "+Integer.parseInt(userDetails.get(SessionManager.KEY_DISTANCE_INTERVAL_IN_KM)));
+                                                        Log.d(TAG," Current Distance  : "+Integer.parseInt(userDetails.get(SessionManager.KEY_DISTANCE_INTERVAL_IN_KM)));
                                                         if (myLocation.distanceTo(target) < Integer.parseInt(userDetails.get(SessionManager.KEY_DISTANCE_INTERVAL_IN_KM)) * 1000) {
                                                             // bingo!
                                                             Log.d(TAG, "Within a 10 km " + list_vendorDataTemp.get(i).getName());
@@ -660,6 +642,9 @@ public class VendorsActivity extends AppCompatActivity {
 
                                                     VendorAdapterRecyclerView adapter = new VendorAdapterRecyclerView(context, list_vendorData,vendorType);
                                                     rvVendors.setAdapter(adapter);
+
+
+                                                    getSlidersByTypeDetailsFromServer();
 
 
 

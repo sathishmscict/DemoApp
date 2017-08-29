@@ -40,7 +40,7 @@ public class SessionManager {
 
     public static final String KEY_REFERALID = "referalId";
 
-    public static final String KEY_LATTITUDE = "Lattitude", KEY_LONGTITUDE = "Longtitude",  KEY_COMPANYNAME = "CompanyName";
+    public static final String KEY_LATTITUDE = "Lattitude", KEY_LONGTITUDE = "Longtitude",  KEY_BRANCHNAME = "CompanyName",KEY_VENDOR_ADDRESS="companyAddress";
 
     public static final String KEY_DISTANCE_INTERVAL_IN_KM="DistanceInKm";
 
@@ -62,14 +62,16 @@ public class SessionManager {
     }
 
 
-    public void setGPSLocations(String lattitude, String longtitude, String companyname) {
+    public void setGPSLocations(String lattitude, String longtitude, String companyname,String companyAddress) {
 
 
 
 
         editor.putString(KEY_LATTITUDE, lattitude);
         editor.putString(KEY_LONGTITUDE, longtitude);
-        editor.putString(KEY_COMPANYNAME, companyname);
+        editor.putString(KEY_BRANCHNAME, companyname);
+        editor.putString(KEY_VENDOR_ADDRESS , companyAddress);
+
 
 
         editor.commit();
@@ -95,6 +97,7 @@ public class SessionManager {
     public void setUserImageUrl(String imgURL) {
 
         editor.putString(KEY_USER_AVATAR_URL, imgURL);
+        editor.commit();
     }
 
     public void setOfferTypeId(int offerTypeId)
@@ -117,12 +120,13 @@ public class SessionManager {
         user.put(KEY_REFERALID  , pref.getString(KEY_REFERALID,"0"));
 
 
+        user.put(KEY_VENDOR_ADDRESS , pref.getString(KEY_VENDOR_ADDRESS  ,""));
         user.put(KEY_OFFFER_TYPE_ID , pref.getString(KEY_OFFFER_TYPE_ID , "1"));
         user.put(KEY_DISTANCE_INTERVAL_IN_KM , pref.getString(KEY_DISTANCE_INTERVAL_IN_KM , "10"));
 
         user.put(KEY_OFFER_TITLE , pref.getString(KEY_OFFER_TITLE , ""));
 
-        user.put(KEY_COMPANYNAME, pref.getString(KEY_COMPANYNAME, ""));
+        user.put(KEY_BRANCHNAME, pref.getString(KEY_BRANCHNAME, ""));
 
         user.put(KEY_LATTITUDE, pref.getString(KEY_LATTITUDE, "0"));
 

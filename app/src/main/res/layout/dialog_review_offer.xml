@@ -5,7 +5,6 @@
     android:layout_height="wrap_content"
 
 
-
     android:clickable="true"
     android:orientation="horizontal">
 
@@ -24,8 +23,8 @@
             android:background="@color/colorPrimary"
             android:drawableRight="@android:drawable/ic_menu_close_clear_cancel"
             android:gravity="center|left"
-            android:paddingRight="8dp"
             android:paddingLeft="8dp"
+            android:paddingRight="8dp"
             android:text="Review Offer"
             android:textColor="@color/white" />
 
@@ -40,15 +39,10 @@
 
         <RatingBar
             android:id="@+id/ratingBar"
+            android:theme="@style/RatingBar"
             android:layout_width="wrap_content"
-
-            style="?android:attr/ratingBarStyle"
-
-
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-
-
             android:numStars="5" />
 
         <android.support.design.widget.TextInputLayout
@@ -62,21 +56,21 @@
                 android:layout_height="wrap_content"
                 android:gravity="center|top|left"
                 android:hint="Include any details in your review,that \nwould be helpful \nto others, or simply rate your experience with the restaurant. Pro tip L a great review covers food,ambience, and service :)"
-                android:textStyle="bold"
                 android:inputType="textMultiLine|textLongMessage"
-
                 android:maxLines="6"
-                android:minLines="4" />
+
+                android:minLines="4"
+                android:textStyle="bold" />
         </android.support.design.widget.TextInputLayout>
 
         <com.myoffersapp.ui.AppButton
             android:id="@+id/btnSubmitReview"
-            android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/button_clicked_background"
             android:text="Submit Review"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textStyle="bold" />
 
     </LinearLayout>
 </android.support.v7.widget.CardView>

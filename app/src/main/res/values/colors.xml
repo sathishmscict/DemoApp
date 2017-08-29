@@ -44,6 +44,7 @@
     <color name="color_red_light">#FFB4B6</color>
     <color name="screen_background">#EFEFEF</color>
     <color name="colorGreen">#229f11</color>
+    <color name="window_background">#EFEFEF</color>
 
 
 </resources>

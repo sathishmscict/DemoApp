@@ -9,9 +9,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -19,14 +17,12 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
 import android.provider.MediaStore;
-import android.provider.Settings;
 import android.support.annotation.IdRes;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.graphics.BitmapCompat;
-import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -37,11 +33,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.webkit.CookieManager;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -49,7 +41,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,15 +55,11 @@ import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
-import com.myoffersapp.AskMobileNoActivity;
-import com.myoffersapp.Manifest;
-import com.myoffersapp.MyApplication;
+import com.myoffersapp.app.MyApplication;
 import com.myoffersapp.R;
 import com.myoffersapp.SessionManager;
-import com.myoffersapp.VerificationActivity;
 import com.myoffersapp.helper.AllKeys;
 import com.myoffersapp.helper.CommonMethods;
-import com.myoffersapp.helper.CustomRequest;
 import com.myoffersapp.helper.ImageUtils;
 import com.myoffersapp.helper.NetConnectivity;
 import com.myoffersapp.helper.Utility;
@@ -80,8 +67,6 @@ import com.myoffersapp.model.SingleUserInfo;
 import com.myoffersapp.retrofit.ApiClient;
 import com.myoffersapp.retrofit.ApiInterface;
 
-
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -94,7 +79,6 @@ import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -836,7 +820,9 @@ public class FragmentProfile extends Fragment {
 
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
 
-        Log.d(TAG, "Paramteres of updateprofile : " + "type=updateprofile&gender="+ GENDER_ID  +"&mobile="+ mobile +"&dob="+ CommonMethods.convertToJsonDateFormat(edtdob.getText().toString()) +"&userid=" +userDetails.get(SessionManager.KEY_USER_ID)+ "&name=" + name + "&email=" + email + "&deviceid=" + Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID) + "&Devicetpe=android&mobile="+ txtmobile.getText().toString() +",0.0,0.0");
+        //Log.d(TAG, "Paramteres of updateprofile : " + "type=updateprofile&gender="+ GENDER_ID  +"&mobile="+ mobile +"&dob="+ CommonMethods.convertToJsonDateFormat(edtdob.getText().toString()) +"&userid=" +userDetails.get(SessionManager.KEY_USER_ID)+ "&name=" + name + "&email=" + email + "&deviceid=" + Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID) + "&Devicetpe=android&mobile="+ txtmobile.getText().toString() +",0.0,0.0");
+
+        Log.d(TAG, "URL UpdateProfile  : " + AllKeys.WEBSITE+"UpdateProfile?type=updateprofile&userid="+ userDetails.get(SessionManager.KEY_USER_ID) +"&name=" + name + "&email=" + email + "gender="+ GENDER_ID +"&dob="+ CommonMethods.convertToJsonDateFormat(edtdob.getText().toString()) +"&mobile="+ userDetails.get(SessionManager.KEY_USER_MOBILE) +"");
 
 
 
@@ -875,6 +861,11 @@ public class FragmentProfile extends Fragment {
                                 String gender = data.get(i).getGender();
                                 String dob = data.get(i).getDob();
                                 String useravatar = data.get(i).getUseravatar();
+                                if(useravatar.contains("google"))
+                                {
+                                    useravatar  =useravatar.replace("http://discountapp.studyfield.com/","");
+                                }
+
                                 String referalcode = data.get(i).getReferalcode();
                                 String devicetype = data.get(i).getDevicetype();
                                 String isActive = data.get(i).getIsactive();

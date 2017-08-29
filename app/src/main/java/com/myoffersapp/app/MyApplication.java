@@ -1,4 +1,4 @@
-package com.myoffersapp;
+package com.myoffersapp.app;
 
 import android.app.Application;
 import android.content.Context;
@@ -18,6 +18,8 @@ import com.myoffersapp.helper.AllKeys;
 
 
 import io.fabric.sdk.android.Fabric;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 /**
  * Created by SATHISH on 28-Jun-17.
@@ -33,12 +35,14 @@ public class MyApplication extends Application {
 
     private static MyApplication mInstance;
     private ImageLoader mImageLoader;
+
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(this);
+
+
+
     }
-
-
 
 
     @Override
@@ -46,10 +50,18 @@ public class MyApplication extends Application {
         super.onCreate();
         Fabric.with(this, new Crashlytics());
         mInstance = this;
+
+        Realm.init(this);
+        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder()
+                .name(Realm.DEFAULT_REALM_NAME)
+                .schemaVersion(0)
+                .deleteRealmIfMigrationNeeded()
+                .build();
+        Realm.setDefaultConfiguration(realmConfiguration);
+
         //Initializing firebase
         try {
             Firebase.setAndroidContext(getApplicationContext());
-
 
 
             final Fabric fabric = new Fabric.Builder(this)
@@ -59,10 +71,7 @@ public class MyApplication extends Application {
             Fabric.with(fabric);
 
 
-
-
-
-            Fabric.with(getApplicationContext(),new Crashlytics());
+            Fabric.with(getApplicationContext(), new Crashlytics());
 
 
         } catch (Exception e) {
@@ -89,6 +98,7 @@ public class MyApplication extends Application {
 
 
     }
+
     public ImageLoader getImageLoader() {
         return mImageLoader;
     }

@@ -174,7 +174,38 @@ import com.google.gson.annotations.SerializedName;
             private String mobile;
             @SerializedName("giftedby")
             @Expose
-            private String giftedby;
+           private String giftedby;
+
+            @SerializedName("vendorname")
+            @Expose
+            private String vendorname;
+            @SerializedName("address")
+            @Expose
+            private String address;
+
+
+
+
+
+            public String getVendorname() {
+                return vendorname;
+            }
+
+            public void setVendorname(String vendorname) {
+                this.vendorname = vendorname;
+            }
+
+            public String getAddress() {
+                return address;
+            }
+
+            public void setAddress(String address) {
+                this.address = address;
+            }
+
+
+
+
 
             public String getFreecouponid() {
                 return freecouponid;
@@ -423,6 +454,8 @@ import com.google.gson.annotations.SerializedName;
             public void setRating(String rating) {
                 this.rating = rating;
             }
+
+
 
         }
 

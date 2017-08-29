@@ -94,12 +94,12 @@ public class OfferHistoryFragment extends Fragment {
         CommonMethods.showDialog(spotsDialog);
 
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Log.d(TAG , "Params  : "+ AllKeys.WEBSITE +"ViewOfferHistoryData?type=offerhistory&userid= "+userDetails.get(SessionManager.KEY_USER_ID));
+        Log.d(TAG, "URL  ViewOfferHistoryData  : " + AllKeys.WEBSITE + "ViewOfferHistoryData?type=offerhistory&userid= " + userDetails.get(SessionManager.KEY_USER_ID));
 
 
-                //apiService.getOfferHistoryDetailsFromServer("offerhistory", userDetails.get(SessionManager.KEY_USER_ID)).enqueue(new Callback<OffersHistoryData>() {
+        apiService.getOfferHistoryDetailsFromServer("offerhistory", userDetails.get(SessionManager.KEY_USER_ID)).enqueue(new Callback<OffersHistoryData>() {
 
-                    apiService.getOfferHistoryDetailsFromServer("offerhistory", "5").enqueue(new Callback<OffersHistoryData>() {
+            //    apiService.getOfferHistoryDetailsFromServer("offerhistory", "5").enqueue(new Callback<OffersHistoryData>() {
 
 
             @Override
@@ -117,9 +117,7 @@ public class OfferHistoryFragment extends Fragment {
                     boolean record_status = response.body().getRECORDS();
 
 
-
-                    if (error_status == false)
-                    {
+                    if (error_status == false) {
 
                         if (record_status == true) {
 
@@ -130,23 +128,19 @@ public class OfferHistoryFragment extends Fragment {
                             rvOfferList.setVisibility(View.VISIBLE);
                             tvNodata.setVisibility(View.GONE);
 
-                        }
-                        else
-                        {
+                        } else {
                             rvOfferList.setVisibility(View.GONE);
                             tvNodata.setVisibility(View.VISIBLE);
                             tvNodata.setText(getString(R.string.str_no_offer_history_found));
-
 
 
                         }
                     }
 
 
-
                 } else {
 
-                    Toast.makeText(context, "Something is wrong,try again  Error code :"+response.code(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Something is wrong,try again  Error code :" + response.code(), Toast.LENGTH_SHORT).show();
                 }
 
                 CommonMethods.hideDialog(spotsDialog);

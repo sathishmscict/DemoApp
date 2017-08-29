@@ -305,10 +305,16 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
                 String email = Plus.AccountApi.getAccountName(google_api_client);
 
-                Log.d("Emailid", email);
+                Log.d("EmailId", email);
+
 
                 String personName = currentPerson.getDisplayName();
                 String personPhotoUrl = currentPerson.getImage().getUrl();
+                if(personPhotoUrl.contains("sz=50"))
+                {
+                    personPhotoUrl = personPhotoUrl.replace("sz=50","sz=250");
+
+                }
 
                 PROVIDER_USERID = currentPerson.getId();
 
@@ -320,7 +326,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 gPlusRevokeAccess();
 
                 sessionManager.setUserDetails(personName, email);
-                ///gss
+
+
 
                 sendLoginDetailsToServer(personName, email);
 
@@ -401,9 +408,11 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
 
-        Log.d(TAG, "Paramteres of login_screen_logo_home6 : " + "login_screen_logo_home6," + "," + name + "," + email + ",1," + Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID) + ",android,0.0,0.0");
+        userDetails = sessionManager.getSessionDetails();
 
-        apiService.sendUserLoginData("login", "", name, email, "1", Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID), "android", "0.0", "0.0").enqueue(new Callback<SingleUserInfo>() {
+        Log.d(TAG , "URL login  : "+AllKeys.WEBSITE+"login?type=login&mobile=&name="+ name +"&email="+ email +"&isactive=1&deviceid="+  Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID) +"&devicetype=android&lattitude=0.0&longitude=0.0&useravatar="+ userDetails.get(SessionManager.KEY_USER_AVATAR_URL) +"");
+
+        apiService.sendUserLoginData("login", "", name, email, "1", Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID), "android", "0.0", "0.0",userDetails.get(SessionManager.KEY_USER_AVATAR_URL)).enqueue(new Callback<SingleUserInfo>() {
             @Override
             public void onResponse(Call<SingleUserInfo> call, Response<SingleUserInfo> response) {
 
@@ -437,6 +446,13 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                                 String gender = data.get(i).getGender();
                                 String dob = data.get(i).getDob();
                                 String useravatar = data.get(i).getUseravatar();
+
+                                if(useravatar.contains("google"))
+                                {
+                                    useravatar  =useravatar.replace("http://discountapp.studyfield.com/","");
+                                }
+
+
                                 String referalcode = data.get(i).getReferalcode();
                                 String devicetype = data.get(i).getDevicetype();
                                 String isActive = data.get(i).getIsactive();
@@ -572,7 +588,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 google_api_client.connect();
             }
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            //Log.d("GOOGLE SIGN IN", "handleSignInResult:" + result.isSuccess());
+           // Log.d("GOOGLE SIGN IN", "handleSignInResult:" + result.isSuccess());
             // Signed in successfully, show authenticated UI.
            /* GoogleSignInAccount acct = result.getSignInAccount();
             UserUtil util = new UserUtil();

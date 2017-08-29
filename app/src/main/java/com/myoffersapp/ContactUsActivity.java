@@ -18,6 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -46,8 +47,8 @@ public class ContactUsActivity extends AppCompatActivity implements OnMapReadyCa
 
     private static final int MY_PERMISSIONS_REQUEST_MAP = 121;
     private CoordinatorLayout coordinatorLayout;
-    private Context context=this;
-  //  private TextView txtaddress;
+    private Context context = this;
+    //  private TextView txtaddress;
     private SessionManager sessionManager;
     private HashMap<String, String> userDetails;
     private double latitude;
@@ -55,6 +56,7 @@ public class ContactUsActivity extends AppCompatActivity implements OnMapReadyCa
     private GoogleMap googleMap;
     private String TAG = ContactUsActivity.class.getSimpleName();
     private SpotsDialog pDialog;
+    private TextView tvAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,9 +67,6 @@ public class ContactUsActivity extends AppCompatActivity implements OnMapReadyCa
                     .permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
-
-
-
 
 
         setTitle("Contact Us");
@@ -96,14 +95,6 @@ public class ContactUsActivity extends AppCompatActivity implements OnMapReadyCa
 
         }
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
 
         //txtaddress = (TextView)findViewById(R.id.txtaddress);
 
@@ -123,15 +114,15 @@ public class ContactUsActivity extends AppCompatActivity implements OnMapReadyCa
             e2.printStackTrace();
         }
 
-        setTitle(userDetails.get(SessionManager.KEY_COMPANYNAME));
+        setTitle(userDetails.get(SessionManager.KEY_BRANCHNAME));
         // Get the SupportMapFragment and request notification
         // when the map is ready to be used.
 
         try {
 
 
-           // String aa = userDetails.get(SessionManager.KEY_ADDRESS);
-          //  aa = aa.replace(",,", "\n");
+            // String aa = userDetails.get(SessionManager.KEY_ADDRESS);
+            //  aa = aa.replace(",,", "\n");
             //txtaddress.setText("" + aa);
 
         } catch (Exception e1) {
@@ -142,19 +133,19 @@ public class ContactUsActivity extends AppCompatActivity implements OnMapReadyCa
         try {
 
             // Loading map
-           // initilizeMap();
+            // initilizeMap();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
 
+        tvAddress = (TextView) findViewById(R.id.tvAddress);
+
+        tvAddress.setText(userDetails.get(SessionManager.KEY_BRANCHNAME) + "\n" + userDetails.get(SessionManager.KEY_VENDOR_ADDRESS));
 
 
-
-
-        if(NetConnectivity.isOnline(context))
-        {
+        if (NetConnectivity.isOnline(context)) {
 
             // Get the SupportMapFragment and request notification
             // when the map is ready to be used.
@@ -164,9 +155,7 @@ public class ContactUsActivity extends AppCompatActivity implements OnMapReadyCa
 
             //GetContactUsDetailsFromServer();
 
-        }
-        else
-        {
+        } else {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ContactUsActivity.this);
 
             // set dialog message
@@ -176,18 +165,18 @@ public class ContactUsActivity extends AppCompatActivity implements OnMapReadyCa
                     .setCancelable(false)
                     .setIcon(android.R.drawable.stat_notify_error)
 
-                    .setPositiveButton("Retry",new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog,int id) {
+                    .setPositiveButton("Retry", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
                             // if this button is clicked, close
                             // current activity
 
-                            Intent ii=new Intent(context,DashBoardActivity.class);
+                            Intent ii = new Intent(context, DashBoardActivity.class);
                             startActivity(ii);
                             //finish();
 
                             try {
                                 ConnectivityManager dataManager;
-                                dataManager  = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+                                dataManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
                                 Method dataMtd = ConnectivityManager.class.getDeclaredMethod("setMobileDataEnabled", boolean.class);
                                 dataMtd.setAccessible(true);
                                 dataMtd.invoke(dataManager, true);
@@ -206,7 +195,6 @@ public class ContactUsActivity extends AppCompatActivity implements OnMapReadyCa
                             }
 
 
-
                         }
                     });
 
@@ -218,17 +206,12 @@ public class ContactUsActivity extends AppCompatActivity implements OnMapReadyCa
         }
 
 
-
-
-
     }
-
 
 
     // Include the OnCreate() method here too, as described above.
     @Override
     public void onMapReady(final GoogleMap googleMap) {
-
 
 
         Dexter.withActivity(ContactUsActivity.this)
@@ -240,7 +223,7 @@ public class ContactUsActivity extends AppCompatActivity implements OnMapReadyCa
                         // create marker
                         MarkerOptions marker = new MarkerOptions().position(
                                 new LatLng(latitude, longitude)).title(
-                                userDetails.get(SessionManager.KEY_COMPANYNAME));
+                                userDetails.get(SessionManager.KEY_BRANCHNAME));
 
                         // Changing marker icon
                         MarkerOptions icon = marker.icon(BitmapDescriptorFactory
@@ -278,16 +261,7 @@ public class ContactUsActivity extends AppCompatActivity implements OnMapReadyCa
                 }).check();
 
 
-
-
-
-
-
-
-
-
     }
-
 
 
     public void showDialog() {
@@ -452,21 +426,13 @@ public class ContactUsActivity extends AppCompatActivity implements OnMapReadyCa
     }*/
 
 
-
-
-
-
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == android.R.id.home)
-        {
+        if (item.getItemId() == android.R.id.home) {
 
-            Intent intent = new Intent(context , SingleDealDispalyActivity.class);
+            Intent intent = new Intent(context, SingleDealDispalyActivity.class);
             startActivity(intent);
             finish();
-
 
 
         }
@@ -477,10 +443,9 @@ public class ContactUsActivity extends AppCompatActivity implements OnMapReadyCa
     public void onBackPressed() {
         super.onBackPressed();
 
-        Intent intent = new Intent(context , SingleDealDispalyActivity.class);
+        Intent intent = new Intent(context, SingleDealDispalyActivity.class);
         startActivity(intent);
         finish();
-
 
 
     }

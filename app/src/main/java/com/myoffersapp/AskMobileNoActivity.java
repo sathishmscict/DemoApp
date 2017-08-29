@@ -1,5 +1,7 @@
 package com.myoffersapp;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +13,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -21,7 +25,9 @@ import com.myoffersapp.helper.CommonMethods;
 import com.myoffersapp.model.SingleUserInfo;
 import com.myoffersapp.retrofit.ApiClient;
 import com.myoffersapp.retrofit.ApiInterface;
+import com.squareup.picasso.Picasso;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -34,6 +40,7 @@ import retrofit2.Response;
 
 public class AskMobileNoActivity extends AppCompatActivity {
 
+    private static final int DATE_PICKER = 121;
     @BindView(R.id.ivUserAvatar)
     ImageView ivProfile;
     @BindView(R.id.edtEmail)
@@ -90,7 +97,6 @@ public class AskMobileNoActivity extends AppCompatActivity {
         }
 
 
-
         sessionManager = new SessionManager(context);
         userDetails = sessionManager.getSessionDetails();
 
@@ -98,41 +104,46 @@ public class AskMobileNoActivity extends AppCompatActivity {
         spotsDialog.setCancelable(false);
 
 
+        if(!userDetails.get(SessionManager.KEY_USER_AVATAR_URL).equals(""))
+        {
+
+
+            try {
+                Picasso.with(context)
+                        .load(userDetails.get(SessionManager.KEY_USER_AVATAR_URL))
+                        /*.placeholder(R.drawable.app_logo)
+                        .error(R.drawable.app_logo)*/
+                        .into(ivProfile);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
 
         fabNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 
-                if(edtMobile.getText().toString().length() == 10)
-                {
+                if (edtMobile.getText().toString().length() == 10) {
 
                     edtMobileWrapper.setErrorEnabled(false);
+                    sendAndUpdateLoginDetailsToServer(edtName.getText().toString(), edtEmail.getText().toString(), edtMobile.getText().toString());
 
-                    sendAndUpdateLoginDetailsToServer(edtName.getText().toString(),edtEmail.getText().toString(),edtMobile.getText().toString());
+                } else {
 
-                }
-                else
-                {
-
-                    if(edtMobile.getText().toString().equals(""))
-                    {
+                    if (edtMobile.getText().toString().equals("")) {
 
                         edtMobileWrapper.setErrorEnabled(true);
                         edtMobileWrapper.setError("Please enter mobile");
 
-                    }
-                    else if(edtMobile.getText().toString().length()!=10)
-                    {
+                    } else if (edtMobile.getText().toString().length() != 10) {
 
                         edtMobileWrapper.setErrorEnabled(true);
                         edtMobileWrapper.setError("Invalid mobile no");
 
-
                     }
-
                 }
-
 
 
             }
@@ -146,11 +157,76 @@ public class AskMobileNoActivity extends AppCompatActivity {
 
 
 
+        //Set Current Date
+        if (userDetails.get(SessionManager.KEY_USER_DOB).equals("")) {
+
+            edtDob.setText("11-07-1993");
+        } else {
+            edtDob.setText(userDetails.get(SessionManager.KEY_USER_DOB));
+        }
+
+        edtDob.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+
+                    showDialog(DATE_PICKER);
+
+                }
+                return false;
+            }
+        });
+
+
+    }
+    //onCreate compelted
+
+    protected Dialog onCreateDialog(int id) {
+        switch (id) {
+            case DATE_PICKER:
+                return new DatePickerDialog(context, datepickerlistener, Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+
+        }
+
+
+        return null;
+    }
+
+    DatePickerDialog.OnDateSetListener datepickerlistener = new DatePickerDialog.OnDateSetListener() {
+
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+            setCurrentDate(year, month, dayOfMonth);
+
+        }
+    };
+
+    private void setCurrentDate(int year, int month, int day) {
+
+        String mm = "";
+        ++month;
+        if (month <= 9) {
+            mm = "0" + String.valueOf(month);
+
+        } else {
+            mm = String.valueOf(month);
+        }
+
+        String str_day = "";
+        if (day <= 9) {
+
+
+            str_day = "0" + String.valueOf(day);
+        } else {
+            str_day = String.valueOf(day);
+        }
+
+        edtDob.setText(str_day + "-" + mm + "-" + year);
+
     }
 
 
-    private void sendAndUpdateLoginDetailsToServer(String name, String email,String mobile)
-    {
+    private void sendAndUpdateLoginDetailsToServer(String name, String email, String mobile) {
 
         CommonMethods.showDialog(spotsDialog);
 
@@ -158,15 +234,14 @@ public class AskMobileNoActivity extends AppCompatActivity {
 
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
 
-        Log.d(TAG, "Paramteres of updateprofile : " + "updateprofile," + "," + name + "," + email + ",1," + Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID) + ",android,0.0,0.0");
+        Log.d(TAG, "URL UpdateProfile  : " + AllKeys.WEBSITE+"UpdateProfile?type=newuser&userid="+ userDetails.get(SessionManager.KEY_USER_ID) +"&name=" + name + "&email=" + email + "gender=1&dob="+ CommonMethods.convertToJsonDateFormat(edtDob.getText().toString()) +"&mobile="+ edtMobile.getText().toString() +"");
 
-        apiService.sendAndUpdateProfileInfo("updateprofile",userDetails.get(SessionManager.KEY_USER_ID),name,email,userDetails.get(SessionManager.KEY_USER_GENDER),userDetails.get(SessionManager.KEY_USER_DOB),mobile).enqueue(new Callback<SingleUserInfo>() {
+        apiService.sendAndUpdateProfileInfo("updateprofile", userDetails.get(SessionManager.KEY_USER_ID), name, email, userDetails.get(SessionManager.KEY_USER_GENDER), CommonMethods.convertToJsonDateFormat(edtDob.getText().toString()), mobile).enqueue(new Callback<SingleUserInfo>() {
             @Override
             public void onResponse(Call<SingleUserInfo> call, Response<SingleUserInfo> response) {
 
 
-                if (response.code() == 200)
-                {
+                if (response.code() == 200) {
                     // Toast.makeText(context, "API Called Success" + response.body().toString(), Toast.LENGTH_SHORT).show();
                     Log.d(TAG, "API Called Success" + response.toString());
 
@@ -195,6 +270,11 @@ public class AskMobileNoActivity extends AppCompatActivity {
                                 String gender = data.get(i).getGender();
                                 String dob = data.get(i).getDob();
                                 String useravatar = data.get(i).getUseravatar();
+                                if(useravatar.contains("google"))
+                                {
+                                    useravatar  =useravatar.replace("http://discountapp.studyfield.com/","");
+                                }
+
                                 String referalcode = data.get(i).getReferalcode();
                                 String devicetype = data.get(i).getDevicetype();
                                 String isActive = data.get(i).getIsactive();
@@ -228,6 +308,15 @@ public class AskMobileNoActivity extends AppCompatActivity {
                         }
 
                     } else {
+
+                        if(str_error.toLowerCase().contains("mobile"))
+                        {
+                            edtMobileWrapper.setErrorEnabled(true);
+                            edtMobileWrapper.setError(str_error);
+
+                        }
+
+
                         Toast.makeText(context, str_error, Toast.LENGTH_SHORT).show();
                     }
 
@@ -235,7 +324,7 @@ public class AskMobileNoActivity extends AppCompatActivity {
                 } else {
 
 
-                    Toast.makeText(context, "Something is wrong,try again  Error code :"+response.code(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Something is wrong,try again  Error code :" + response.code(), Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -250,8 +339,6 @@ public class AskMobileNoActivity extends AppCompatActivity {
                 CommonMethods.hideDialog(spotsDialog);
             }
         });
-
-
 
 
     }

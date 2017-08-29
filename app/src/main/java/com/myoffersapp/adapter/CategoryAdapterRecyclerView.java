@@ -29,10 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
-import berlin.volders.badger.BadgeDrawable;
-import berlin.volders.badger.BadgeShape;
-import berlin.volders.badger.Badger;
-import berlin.volders.badger.CountBadge;
+
 
 /**
  * Created by Satish Gadde on 30-04-2016.

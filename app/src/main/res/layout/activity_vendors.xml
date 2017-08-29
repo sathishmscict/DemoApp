@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EFEFEF"
+    android:background="@color/window_background"
     tools:context="com.myoffersapp.VendorsActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -28,7 +28,7 @@
 
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="250dp"
+                android:layout_height="fill_parent"
                 android:orientation="vertical">
 
                 <com.daimajia.slider.library.SliderLayout
@@ -81,6 +81,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
+                app:layout_scrollFlags="scroll|enterAlways|snap"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
                 <LinearLayout
@@ -95,7 +96,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Your Location"
-                        android:textAllCaps="true"
+
                         android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
                     <com.myoffersapp.ui.AppTextView
@@ -110,10 +111,29 @@
                 </LinearLayout>
             </android.support.v7.widget.Toolbar>
 
+
         </android.support.design.widget.CollapsingToolbarLayout>
+
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_vendors" />
+
+
+<!--
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:clickable="true"
+        app:layout_anchor="@+id/appbar"
+        app:layout_anchorGravity="bottom|center_horizontal"
+        custom:fabSize="mini"
+
+        />
+-->
+    <include layout="@layout/content_vendors"
+        android:id="@+id/include3" />
+
 
 
 </android.support.design.widget.CoordinatorLayout>

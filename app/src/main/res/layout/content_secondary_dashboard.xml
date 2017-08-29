@@ -45,10 +45,10 @@
     <com.myoffersapp.ui.AppButton
         android:id="@+id/btnFreeCoupon"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="36dp"
         android:layout_marginBottom="0dp"
         android:layout_marginLeft="0dp"
-
+        android:background="@color/colorPrimary"
         android:layout_marginRight="0dp"
 
         android:layout_marginTop="0dp"
@@ -142,7 +142,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="0dp"
 
-        android:text="@string/str_first_bill_offer_descr"
+        android:text="@string/str_first_bill_offer_descr2"
         android:textAppearance="?android:attr/textAppearanceLargePopupMenu"
         android:textColor="@color/colorPrimary"
 
@@ -153,11 +153,12 @@
     <com.myoffersapp.ui.AppButton
         android:id="@+id/btnOffers"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="36dp"
         android:layout_marginBottom="0dp"
         android:layout_marginLeft="0dp"
         android:layout_marginRight="0dp"
         android:layout_marginTop="8dp"
+        android:background="@color/colorPrimary"
         android:backgroundTint="@color/colorPrimary"
         android:text="View Offers"
         android:textColor="@color/white"

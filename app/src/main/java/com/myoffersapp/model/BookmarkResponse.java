@@ -4,10 +4,10 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by SATHISH on 03-Aug-17.
+ * Created by SATHISH on 08-Aug-17.
  */
 
-public class FCMReponse {
+public class BookmarkResponse {
 
     @SerializedName("MESSAGE")
     @Expose
@@ -21,9 +21,6 @@ public class FCMReponse {
     @SerializedName("RECORDS")
     @Expose
     private Boolean rECORDS;
-    @SerializedName("ISFIRSTBILL")
-    @Expose
-    private String iSFIRSTBILL;
 
     public String getMESSAGE() {
         return mESSAGE;
@@ -57,11 +54,4 @@ public class FCMReponse {
         this.rECORDS = rECORDS;
     }
 
-    public String getISFIRSTBILL() {
-        return iSFIRSTBILL;
-    }
-
-    public void setISFIRSTBILL(String iSFIRSTBILL) {
-        this.iSFIRSTBILL = iSFIRSTBILL;
-    }
 }

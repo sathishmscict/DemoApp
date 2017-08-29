@@ -194,6 +194,11 @@ public class DisplayDealsAcivity extends AppCompatActivity {
                 Toast.makeText(context, "Unable to submit post to API.", Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "Unable to submit post to API." + t.getMessage());
 
+                if(t.getMessage().equals("timeout"))
+                {
+                    getDealsDetailsFromServer();
+
+                }
                 CommonMethods.hideDialog(spotsDialog);
             }
         });

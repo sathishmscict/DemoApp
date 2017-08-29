@@ -1,8 +1,10 @@
 package com.myoffersapp.retrofit;
 
+import com.myoffersapp.model.BookmarkData;
+import com.myoffersapp.model.BookmarkResponse;
 import com.myoffersapp.model.CategoryData;
 import com.myoffersapp.model.DealsData;
-import com.myoffersapp.model.FCMReponse;
+import com.myoffersapp.model.CommonReponse;
 import com.myoffersapp.model.FreeOffersData;
 import com.myoffersapp.model.InsertFreeCoupon;
 import com.myoffersapp.model.OffersHistoryData;
@@ -14,18 +16,22 @@ import com.myoffersapp.model.SingleUserInfo;
 import com.myoffersapp.model.SlidersData;
 import com.myoffersapp.model.VendorData;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 
 public interface ApiInterface {
 
     @POST("login")
     @FormUrlEncoded
-    Call<SingleUserInfo> sendUserLoginData(@Field("type") String type, @Field("mobile") String mobile, @Field("name") String name, @Field("email") String email, @Field("isactive") String isactive, @Field("deviceid") String deviceid, @Field("devicetype") String devicetype, @Field("lattitude") String lattitude, @Field("longitude") String longtitude);
+    Call<SingleUserInfo> sendUserLoginData(@Field("type") String type, @Field("mobile") String mobile, @Field("name") String name, @Field("email") String email, @Field("isactive") String isactive, @Field("deviceid") String deviceid, @Field("devicetype") String devicetype, @Field("lattitude") String lattitude, @Field("longitude") String longtitude, @Field("useravatar") String userAvatar);
 
     @POST("UpdateProfile")
     @FormUrlEncoded
@@ -74,7 +80,7 @@ public interface ApiInterface {
 
     @POST("InsertFCMToken")
     @FormUrlEncoded
-    Call<FCMReponse> sendFCMTokenToServer(@Field("type") String type, @Field("userid") String userid, @Field("fcmtoken") String imagecode, @Field("devicetype") String deviceType);
+    Call<CommonReponse> sendFCMTokenToServer(@Field("type") String type, @Field("userid") String userid, @Field("fcmtoken") String fcmToken, @Field("devicetype") String deviceType);
 
 
     @POST("ViewBanner")
@@ -99,6 +105,18 @@ public interface ApiInterface {
     @POST("ViewReviewData")
     @FormUrlEncoded
     Call<ReviewData> getAllReviewDetailsByOfferId(@Field("type") String type, @Field("offerid") String offerid);
+
+    @POST("InsertBookmark")
+    @FormUrlEncoded
+    Call<BookmarkResponse> insertItemAsABookmark(@Field("type") String type, @Field("offerid") String offerId, @Field("userid") String userId);
+
+    @POST("ViewBookmarkData")
+    @FormUrlEncoded
+    Call<BookmarkData> getBookMarkDetailsFromServer(@Field("type") String type, @Field("userid") String userid);
+
+    @POST("RemoveBookmark")
+    @FormUrlEncoded
+    Call<CommonReponse> removeBookmarkFromServer(@Field("type") String type, @Field("bookmarkid") String bookmarkid);
 
 
 }

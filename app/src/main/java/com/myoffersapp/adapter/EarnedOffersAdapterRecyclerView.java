@@ -75,6 +75,8 @@ public class EarnedOffersAdapterRecyclerView extends RecyclerView.Adapter<Earned
         private final LinearLayout llDeal;
         private final Button btnView, btnTransfer, btnUse;
         private final TextView tvRemaingCount;
+        private final TextView tvVendorAddress;
+        private final TextView tvVendorName;
 
 
         public MyViewHolder(View view) {
@@ -103,6 +105,11 @@ public class EarnedOffersAdapterRecyclerView extends RecyclerView.Adapter<Earned
             btnUse = (Button) view.findViewById(R.id.btnUse);
 
             tvRemaingCount = (TextView)view.findViewById(R.id.tvRemaingCount);
+
+            tvVendorAddress = (TextView)view.findViewById(R.id.tvVendorAddress);
+            tvVendorName  = (TextView)view.findViewById(R.id.tvVendorName);
+
+
 
 
 
@@ -159,6 +166,10 @@ public class EarnedOffersAdapterRecyclerView extends RecyclerView.Adapter<Earned
 
         holder.tvOfferTitle.setText(dealData.getTitle());
 
+
+
+        holder.tvVendorAddress.setText(dealData.getAddress());
+        holder.tvVendorName.setText(dealData.getVendorname());
 
         if (dealData.getDiscountypename().toLowerCase().contains("other")) {
 

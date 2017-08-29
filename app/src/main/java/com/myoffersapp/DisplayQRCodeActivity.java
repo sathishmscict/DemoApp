@@ -27,6 +27,9 @@ import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrConfig;
 import com.r0adkll.slidr.model.SlidrPosition;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 
 import butterknife.BindView;
@@ -41,11 +44,19 @@ public class DisplayQRCodeActivity extends AppCompatActivity {
     @BindView(R.id.tvOfferTitle)
     TextView tvOfferTitle;
 
+    @BindView(R.id.tvVendorName)
+    TextView tvVendorName;
+
+    @BindView(R.id.tvVendorAddress)
+    TextView tvVendorAddress;
+
+
     private Context context=this;
     private SpotsDialog spotsDialog;
     private SessionManager sessionManager;
     private HashMap<String, String> userDetails= new HashMap<String, String>();
     private String TAG = DisplayDealsAcivity.class.getSimpleName();
+    private String json="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +91,9 @@ public class DisplayQRCodeActivity extends AppCompatActivity {
         }
 
         tvOfferTitle.setText(userDetails.get(SessionManager.KEY_OFFER_TITLE));
+        tvVendorAddress.setText(userDetails.get(SessionManager.KEY_VENDOR_ADDRESS));
+        tvVendorName.setText(userDetails.get(SessionManager.KEY_BRANCHNAME));
+
 
         //Encode with a QR Code image
 
@@ -92,7 +106,21 @@ public class DisplayQRCodeActivity extends AppCompatActivity {
         int smallerDimension = width < height ? width : height;
         smallerDimension = smallerDimension * 3/4;
 
-        String urlSingleOffer = AllKeys.WEBSITE+"ViewSingleOfferData?type=offer&offerid="+ userDetails.get(SessionManager.KEY_OFFERID) +"";
+
+
+        try {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.accumulate("offerid", userDetails.get(SessionManager.KEY_OFFERID));
+            jsonObject.accumulate("branchid", userDetails.get(SessionManager.KEY_BRANCHIID));
+            jsonObject.accumulate("userid", userDetails.get(SessionManager.KEY_USER_ID));
+
+            json = json + jsonObject.toString() ;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        String urlSingleOffer = json;
         Log.d(TAG  , " Single Offer URL : "+urlSingleOffer);
         QRCodeEncoder qrCodeEncoder = new QRCodeEncoder(urlSingleOffer,
                 null,
